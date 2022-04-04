@@ -12,6 +12,15 @@ namespace ulearngame1
     {
         public int X { get; set; }
         public int Y { get; set; }
+        public int a;
+        public int b;
+        public int c;
+        public int d;
+        public int e;
+        public int f;
+        public int g;
+        public int h;
+        public int j;
         public int currentFrame;
         public static Bitmap walkImage = Resource1.Walk;
         public static Bitmap stayImage = Resource1.Idle;
