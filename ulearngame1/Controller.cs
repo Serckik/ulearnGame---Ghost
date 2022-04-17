@@ -11,6 +11,7 @@ namespace ulearngame1
     {
         public static int shiftX;
         public static int shiftY;
+        public static int MoveSpeed = 5;
 
         public static void PlayerKey(Keys pressed, bool IsActive)
         {
@@ -22,59 +23,64 @@ namespace ulearngame1
 
         public static void PlayerMove()
         {
-            if (GameModel.player.left == true && !(GameModel.map[GameModel.player.Position.X - 1, GameModel.player.Position.Y] is Wall))
+            if (GameModel.player.left == true)
             {
-                if (shiftY == 0)
+                if ((shiftY <= 10 || shiftY >= -10) && shiftX != 0)
                 {
-                    GameModel.player.X -= 5;
-                    shiftX -= 5;
+                    GameModel.player.X -= MoveSpeed;
+                    shiftX -= MoveSpeed;
                 }
-                if (shiftX == -60)
+                if (shiftX == 0 && !(GameModel.map[GameModel.player.Position.X - 1, GameModel.player.Position.Y] is Wall))
                 {
                     GameModel.player.Position.X -= 1;
-                    shiftX = 0;
+                    shiftX = 60;
                 }
             }
-            else if (GameModel.player.right == true && !(GameModel.map[GameModel.player.Position.X + 1, GameModel.player.Position.Y] is Wall))
+            else if (GameModel.player.right == true)
             {
-                if (shiftY == 0)
+                if ((shiftY <= 10 || shiftY >= -10) && shiftX != 60)
                 {
-                    GameModel.player.X += 5;
-                    shiftX += 5;
+                    GameModel.player.X += MoveSpeed;
+                    shiftX += MoveSpeed;
                 }
-                if (shiftX == 60)
+                if (shiftX == 60 && !(GameModel.map[GameModel.player.Position.X + 1, GameModel.player.Position.Y] is Wall))
                 {
                     GameModel.player.Position.X += 1;
                     shiftX = 0;
                 }
             }
-            else if (GameModel.player.top == true && !(GameModel.map[GameModel.player.Position.X, GameModel.player.Position.Y - 1] is Wall))
+            else if (GameModel.player.top == true)
             {
-                if (shiftX == 0)
+                if ((shiftX <= 10 || shiftX >= -10) && shiftY != 0)
                 {
-                    GameModel.player.Y -= 5;
-                    shiftY -= 5;
+                    GameModel.player.Y -= MoveSpeed;
+                    shiftY -= MoveSpeed;
                 }
-                if (shiftY == -60)
+                if (shiftY == 0 && !(GameModel.map[GameModel.player.Position.X, GameModel.player.Position.Y - 1] is Wall))
                 {
                     GameModel.player.Position.Y -= 1;
-                    shiftY = 0;
+                    shiftY = 60;
                 }
             }
-            else if (GameModel.player.bottom == true && !(GameModel.map[GameModel.player.Position.X, GameModel.player.Position.Y + 1] is Wall))
+            else if (GameModel.player.bottom == true)
             {
-                if (shiftX == 0)
+                if ((shiftX <= 10 || shiftX >= -10) && shiftY != 60)
                 {
-                    GameModel.player.Y += 5;
-                    shiftY += 5;
+                    GameModel.player.Y += MoveSpeed;
+                    shiftY += MoveSpeed;
                 }
-                if (shiftY == 60)
+                if (shiftY == 60 && !(GameModel.map[GameModel.player.Position.X, GameModel.player.Position.Y + 1] is Wall))
                 {
                     GameModel.player.Position.Y += 1;
                     shiftY = 0;
                 }
             }
             else GameModel.keyPressed = false;
+        }
+
+        public static void MonsterMove()
+        {
+
         }
     }
 }

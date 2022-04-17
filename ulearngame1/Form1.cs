@@ -40,6 +40,7 @@ namespace ulearngame1
         public void Update(object sender, EventArgs e)
         {
             Controller.PlayerMove();
+            Controller.MonsterMove();
             Invalidate();
         }
 

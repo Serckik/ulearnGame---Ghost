@@ -15,6 +15,7 @@ namespace ulearngame1
         public static int MapHeight => map.GetLength(1);
         public static bool keyPressed = false;
         public static Player player;
+        public static Monster monster;
         public static void GetAnimations()
         {
             for (var x = 0; x < MapWidth; x++)

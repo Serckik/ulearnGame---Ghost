@@ -21,10 +21,8 @@ namespace ulearngame1
         public int widht = walkImage.Width / 8;
         public bool left, right, top, bottom;
         public int state = 0;
-        public Bitmap image;
+        public Bitmap image { get; set; }
         public Point Position;
-
-        Bitmap IPlaceable.image { get; set; }
         public string name { get; set; }
 
         public Player() 
@@ -35,8 +33,8 @@ namespace ulearngame1
         public Player(int x, int y)
         {
             name = "Player";
-            X = x * GameModel.ElementSize;
-            Y = y * GameModel.ElementSize;
+            X = (x * GameModel.ElementSize) - 30;
+            Y = (y * GameModel.ElementSize) - 30;
             Position = new Point(x, y);
         }
 

@@ -13,13 +13,21 @@ namespace ulearngame1
         public static void UpdateTextures(Graphics g, bool keyPressed)
         {
             foreach (var item in GameModel.animations)
-                if (!(item is Player))
+                if (!(item is Imoveble))
                     item.PlayAnimation(g, keyPressed);
             foreach (var item in GameModel.animations)
-                if (item is Player)
+                if (item is Imoveble)
                 {
-                    GameModel.player = (Player)item;
-                    GameModel.player.PlayAnimation(g, keyPressed);
+                    if(item is Player)
+                    {
+                        GameModel.player = (Player)item;
+                        GameModel.player.PlayAnimation(g, keyPressed);
+                    }
+                    else
+                    {
+                        GameModel.monster = (Monster)item;
+                        GameModel.monster.PlayAnimation(g, keyPressed);
+                    }
                 }
         }
     }

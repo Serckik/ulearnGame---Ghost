@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Monster.cs" />
     <Compile Include="view.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="GameModel.cs" />
@@ -153,6 +154,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\wRe.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\monster.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
