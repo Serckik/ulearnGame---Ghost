@@ -13,13 +13,15 @@ namespace ulearngame1
         public int Y { get; set; }
         public Bitmap image { get; set; }
         public string name { get; set; }
-        public Point Position;
+        public int shiftX { get; set; }
+        public int shiftY { get; set; }
+        public Point Position { get; set; }
 
         public Monster(int x, int y)
         {
             name = "Monster";
-            X = x * GameModel.ElementSize;
-            Y = y * GameModel.ElementSize;
+            X = (x * GameModel.ElementSize) - 30;
+            Y = (y * GameModel.ElementSize) - 30;
             Position = new Point(x, y);
         }
 

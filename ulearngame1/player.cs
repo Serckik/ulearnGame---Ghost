@@ -21,9 +21,12 @@ namespace ulearngame1
         public int widht = walkImage.Width / 8;
         public bool left, right, top, bottom;
         public int state = 0;
+
         public Bitmap image { get; set; }
-        public Point Position;
         public string name { get; set; }
+        public int shiftX { get; set; }
+        public int shiftY { get; set; }
+        public Point Position { get; set; }
 
         public Player() 
         {
