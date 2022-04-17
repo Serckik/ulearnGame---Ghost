@@ -14,10 +14,12 @@ namespace ulearngame1
         public Bitmap image { get; set; }
         public string name { get; set; }
 
-        public Floor()
+        public Floor(int x, int y)
         {
             image = Resource1.Floor;
             name = "Floor";
+            X = x * GameModel.ElementSize;
+            Y = y * GameModel.ElementSize;
         }
 
         public void PlayAnimation(Graphics g, bool keyPressed)

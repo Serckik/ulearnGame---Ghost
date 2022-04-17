@@ -14,7 +14,7 @@ namespace ulearngame1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1() { WindowState = FormWindowState.Maximized, BackColor = Color.Black});
+            Application.Run(new Form1() { WindowState = FormWindowState.Maximized, BackColor = Color.Black, FormBorderStyle = FormBorderStyle.None});
         }
     }
 }

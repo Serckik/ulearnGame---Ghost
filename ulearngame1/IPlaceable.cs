@@ -14,6 +14,6 @@ namespace ulearngame1
         Bitmap image { get; set; }
         string name { get; set; }
 
-        void PlayAnimation(Graphics g, bool keyPressed);
+        void  PlayAnimation(Graphics g, bool keyPressed);
     }
 }

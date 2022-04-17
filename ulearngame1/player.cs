@@ -8,19 +8,10 @@ using System.Windows.Forms;
 
 namespace ulearngame1
 {
-    class Player : IPlaceable
+    class Player : Imoveble
     {
         public int X { get; set; }
         public int Y { get; set; }
-        public int a;
-        public int b;
-        public int c;
-        public int d;
-        public int e;
-        public int f;
-        public int g;
-        public int h;
-        public int j;
         public int currentFrame;
         public static Bitmap walkImage = Resource1.Walk;
         public static Bitmap stayImage = Resource1.Idle;
@@ -31,15 +22,22 @@ namespace ulearngame1
         public bool left, right, top, bottom;
         public int state = 0;
         public Bitmap image;
-        public Point position;
+        public Point Position;
 
         Bitmap IPlaceable.image { get; set; }
         public string name { get; set; }
 
-        public Player()
+        public Player() 
         {
             name = "Player";
-            position = new Point(X / 60, Y / 60);
+        }
+
+        public Player(int x, int y)
+        {
+            name = "Player";
+            X = x * GameModel.ElementSize;
+            Y = y * GameModel.ElementSize;
+            Position = new Point(x, y);
         }
 
         public void PlayAnimation(Graphics g, bool keyPressed)
@@ -54,19 +52,19 @@ namespace ulearngame1
 
         public Bitmap ChooseAnimation(bool keyPressed)
         {
-            if (!keyPressed && state == 1) return stayImage;
-            else if (!keyPressed && state == 0) return stayImageRe;
-            if ((bottom || top) && state == 1) return walkImage;
-            if ((bottom || top) && state == 0) return walkImageRe;
+            if (!keyPressed && state == 1) return Resource1.Idle;
+            else if (!keyPressed && state == 0) return Resource1.IdleRe;
+            if ((bottom || top) && state == 1) return Resource1.Walk;
+            if ((bottom || top) && state == 0) return Resource1.WalkRe;
             if (right)
             {
                 state = 1;
-                return walkImage;
+                return Resource1.Walk;
             }
             else if (left)
             {
                 state = 0;
-                return walkImageRe;
+                return Resource1.WalkRe;
             }
             return image;
         }

@@ -11,7 +11,7 @@ namespace ulearngame1
     {
         private const string emptyMap = @"
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-/EEEEEEPEEEEEEEEEEEEEEEEEEEEEEE|
+/EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE|
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE|
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE|
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE|
@@ -24,6 +24,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE|
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE|
 /EEEEEEEEEEEEEEEEEEEEPEEEEEEEEE|
+/EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE|
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE|
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE|
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
@@ -45,40 +46,37 @@ WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE|
 /WWWWWWWWWWWWWWWWWWWWWWWWWWWWWE|
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE|
+/EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE|
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
 
-        public static IPlaceable[,] map;
-        public static int MapWidth => map.GetLength(0);
-        public static int MapHeight => map.GetLength(1);
-
-        public static void CreateMap()
+        public static IPlaceable[,] CreateMap()
         {
-            map = CreateMap(emptyMap);
+            return CreateMap(emptyMap);
         }
 
-        public static IPlaceable[,] CreateMap(string map, string separator = "\r\n")
+        private static IPlaceable[,] CreateMap(string map, string separator = "\r\n")
         {
             var rows = map.Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries);
             var result = new IPlaceable[rows[0].Length, rows.Length];
             for (var x = 0; x < rows[0].Length; x++)
                 for (var y = 0; y < rows.Length; y++)
-                    result[x, y] = CreateCreatureBySymbol(rows[y][x]);
+                    result[x, y] = CreateCreatureBySymbol(rows[y][x], x, y);
             return result;
         }
-        private static IPlaceable CreateCreatureBySymbol(char c)
+        private static IPlaceable CreateCreatureBySymbol(char c, int x, int y)
         {
             switch (c)
             {
                 case 'P':
-                    return new Player();
+                    return new Player(x, y);
                 case 'E':
-                    return new Floor();
+                    return new Floor(x, y);
                 case 'W':
-                    return new Wall(Resource1.Wall);
+                    return new Wall(Resource1.Wall, x, y);
                 case '/':
-                    return new Wall(Resource1.WallLeft);
+                    return new Wall(Resource1.WallLeft, x, y);
                 case '|':
-                    return new Wall(Resource1.WallRight);
+                    return new Wall(Resource1.WallRight, x, y);
                 default:
                     throw new Exception($"wrong character for ICreature {c}");
             }

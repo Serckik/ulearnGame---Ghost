@@ -46,6 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="view.cs" />
+    <Compile Include="Controller.cs" />
+    <Compile Include="GameModel.cs" />
+    <Compile Include="Imoveble.cs" />
     <Compile Include="Wall.cs" />
     <Compile Include="floor.cs" />
     <Compile Include="player.cs" />
@@ -56,7 +60,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interface1.cs" />
+    <Compile Include="IPlaceable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource1.Designer.cs">
