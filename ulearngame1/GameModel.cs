@@ -16,7 +16,6 @@ namespace ulearngame1
         public static bool keyPressed = false;
         public static int MoveSpeed = 5;
         public static Player player;
-        public static Monster monster;
         public static void GetAnimations()
         {
             for (var x = 0; x < MapWidth; x++)

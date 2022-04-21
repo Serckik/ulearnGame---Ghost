@@ -27,6 +27,8 @@ namespace ulearngame1
         public int shiftX { get; set; }
         public int shiftY { get; set; }
         public Point Position { get; set; }
+        public bool PositionChanged { get; set; }
+        public int moveSpeed { get; set; }
 
         public Player() 
         {
@@ -39,6 +41,20 @@ namespace ulearngame1
             X = (x * GameModel.ElementSize) - 30;
             Y = (y * GameModel.ElementSize) - 30;
             Position = new Point(x, y);
+            moveSpeed = 5;
+        }
+
+        public void PlayerMove()
+        {
+            if (GameModel.player.left == true)
+                Move.MoveX(GameModel.player, 0, 60, -1);
+            else if (GameModel.player.right == true)
+                Move.MoveX(GameModel.player, 60, 0, 1);
+            else if (GameModel.player.top == true)
+                Move.MoveY(GameModel.player, 0, 60, -1);
+            else if (GameModel.player.bottom == true)
+                Move.MoveY(GameModel.player, 60, 0, 1);
+            else GameModel.keyPressed = false;
         }
 
         public void PlayAnimation(Graphics g, bool keyPressed)

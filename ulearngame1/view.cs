@@ -22,11 +22,13 @@ namespace ulearngame1
                     {
                         GameModel.player = (Player)item;
                         GameModel.player.PlayAnimation(g, keyPressed);
+                        GameModel.player.PlayerMove();
                     }
                     else
                     {
-                        GameModel.monster = (Monster)item;
-                        GameModel.monster.PlayAnimation(g, keyPressed);
+                        var monster = (Monster)item;
+                        monster.PlayAnimation(g, keyPressed);
+                        monster.MonsterMove();
                     }
                 }
         }

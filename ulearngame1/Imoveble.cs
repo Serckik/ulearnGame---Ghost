@@ -12,5 +12,7 @@ namespace ulearngame1
         int shiftX { get; set; }
         int shiftY { get; set; }
         Point Position { get; set; }
+        bool PositionChanged { get; set; }
+        int moveSpeed { get; set; }
     }
 }
