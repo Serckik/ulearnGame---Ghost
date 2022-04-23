@@ -10,8 +10,6 @@ namespace ulearngame1
 {
     class Controller
     {
-        private static Random random = new Random();
-
         public static void PlayerKey(Keys pressed, bool IsActive)
         {
             if (pressed == Keys.A) { GameModel.player.left = IsActive; };

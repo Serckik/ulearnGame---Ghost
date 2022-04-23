@@ -21,7 +21,7 @@ namespace ulearngame1
             timer.Start();
             KeyDown += Form1_KeyDown;
             KeyUp += Form1_KeyUp;
-            GameModel.GetAnimations();
+            //GameModel.GetAnimations();
             DoubleBuffered = true;
             InitializeComponent();
         }
@@ -39,6 +39,7 @@ namespace ulearngame1
 
         public void Update(object sender, EventArgs e)
         {
+            GameModel.GetVision();
             Invalidate();
         }
 
