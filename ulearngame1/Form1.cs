@@ -21,7 +21,7 @@ namespace ulearngame1
             timer.Start();
             KeyDown += Form1_KeyDown;
             KeyUp += Form1_KeyUp;
-            //GameModel.GetAnimations();
+            //GameModel.DevVision();
             DoubleBuffered = true;
             InitializeComponent();
         }

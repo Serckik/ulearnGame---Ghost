@@ -18,7 +18,7 @@ namespace ulearngame1
         public static int MoveSpeed = 5;
         public static Player player;
         public static int vision = 5;
-        public static void GetAnimations()
+        public static void DevVision()
         {
             for (var x = 0; x < MapWidth; x++)
             {
@@ -42,187 +42,109 @@ namespace ulearngame1
         public static void GetVision()
         {
             animations.Clear();
-            var shadows = FindAndSetShadows();
             //var shadows = new List<Point>();
-            var shift = 0;
-            var start = player.Position.Y - vision;
-            while(shift != vision + 1)
-            {
-                for (var i = 0; i <= shift; i++)
-                {
-                    if (start < 0 || start >= MapHeight) continue;
-                    if (i != 0 && !(player.Position.X - i < 0 || player.Position.X - i >= MapWidth) && 
-                        (!shadows.Contains(new Point(player.Position.X - i, start))) &&
-                        HaveSpace(player.Position.X - i, start, shadows))
-                        animations.Add(map[player.Position.X - i, start]);
-                    if (!(player.Position.X + i < 0 || player.Position.X + i >= MapWidth) && map[player.Position.X + i, start] == map[player.Position.X, player.Position.Y])
-                    {
-                        map[player.Position.X, player.Position.Y] = new Floor(player.Position.X, player.Position.Y);
-                        animations.Add(new Floor(player.Position.X, player.Position.Y));
-                    }
-                    if(!(player.Position.X + i < 0 || player.Position.X + i >= MapWidth) &&
-                        (!shadows.Contains(new Point(player.Position.X + i, start))) &&
-                        HaveSpace(player.Position.X + i, start, shadows))
-                    {
-                        animations.Add(map[player.Position.X + i, start]);
-                    }
-                }
-                start++;
-                shift++;
-            }
-            shift = 0;
-            start = player.Position.Y + vision;
-            while(shift != vision)
-            {
-                for (var i = 0; i <= shift; i++)
-                {
-                    if (start < 0 || start >= MapHeight) continue;
-                    if (i != 0 && !(player.Position.X - i < 0 || player.Position.X - i >= MapWidth) &&
-                        (!shadows.Contains(new Point(player.Position.X - i, start))) &&
-                        HaveSpace(player.Position.X - i, start, shadows))
-                        animations.Add(map[player.Position.X - i, start]);
-                    if(!(player.Position.X + i < 0 || player.Position.X + i >= MapWidth) &&
-                        (!shadows.Contains(new Point(player.Position.X + i, start))) &&
-                        HaveSpace(player.Position.X + i, start, shadows))
-                        animations.Add(map[player.Position.X + i, start]);
-                }
-                start--;
-                shift++;
-            }
+            var shadows = FindShadows(player.Position.Y - vision, new HashSet<Point>()); ;
+            DoSectorVisibility(player.Position.Y - vision, shadows);
+            FindSingleObject(shadows);
             animations.Add(player);
+        }
 
-            shift = 0;
-            start = player.Position.Y - vision;
-            while (shift != vision + 1)
+        private static bool InBounds(int point, int MaxValue)
+        {
+            return point < 0 || point >= MaxValue;
+        }
+
+        private static bool IsShadow(HashSet<Point> shadows, int position, int topPoint)
+        {
+            return !shadows.Contains(new Point(position, topPoint)) &&
+                        HaveSpace(position, topPoint, shadows);
+        }
+
+        private static void DoSectorVisibility(int topPoint, HashSet<Point> shadows)
+        {
+            var shift = 0;
+            while (topPoint != player.Position.Y + vision)
             {
                 for (var i = 0; i <= shift; i++)
                 {
-                    if (start < 0 || start >= MapHeight) continue;
-                    if (i != 0 && !(player.Position.X - i < 0 || player.Position.X - i >= MapWidth) &&
-                        (!shadows.Contains(new Point(player.Position.X - i, start))) &&
-                        !HaveSpace(player.Position.X - i, start, shadows))
-                        animations.Remove(map[player.Position.X - i, start]);
-                    if (!(player.Position.X + i < 0 || player.Position.X + i >= MapWidth) &&
-                        (!shadows.Contains(new Point(player.Position.X + i, start))) &&
-                        !HaveSpace(player.Position.X + i, start, shadows))
-                    {
-                        animations.Remove(map[player.Position.X + i, start]);
-                    }
+                    if (InBounds(topPoint, MapHeight)) continue;
+
+                    if (!InBounds(player.Position.X - i, MapWidth) && IsShadow(shadows, player.Position.X - i, topPoint))
+                        animations.Add(map[player.Position.X - i, topPoint]);
+
+                    if (!InBounds(player.Position.X + i, MapWidth) && map[player.Position.X + i, topPoint] is Player)
+                        map[player.Position.X, player.Position.Y] = new Floor(player.Position.X, player.Position.Y);
+
+                    if (!InBounds(player.Position.X + i, MapWidth) && IsShadow(shadows, player.Position.X + i, topPoint))
+                        animations.Add(map[player.Position.X + i, topPoint]);
                 }
-                start++;
-                shift++;
-            }
-            shift = 0;
-            start = player.Position.Y + vision;
-            while (shift != vision)
-            {
-                for (var i = 0; i <= shift; i++)
-                {
-                    if (start < 0 || start >= MapHeight) continue;
-                    if (i != 0 && !(player.Position.X - i < 0 || player.Position.X - i >= MapWidth) &&
-                        (!shadows.Contains(new Point(player.Position.X - i, start))) &&
-                        !HaveSpace(player.Position.X - i, start, shadows))
-                        animations.Remove(map[player.Position.X - i, start]);
-                    if (!(player.Position.X + i < 0 || player.Position.X + i >= MapWidth) &&
-                        (!shadows.Contains(new Point(player.Position.X + i, start))) &&
-                        !HaveSpace(player.Position.X + i, start, shadows))
-                        animations.Remove(map[player.Position.X + i, start]);
-                }
-                start--;
-                shift++;
+                topPoint++;
+                shift = topPoint <= player.Position.Y ? shift + 1 : shift - 1;
             }
         }
 
-        public static List<Point> FindAndSetShadows()
+        private static void FindSingleObject(HashSet<Point> shadows)
+        {
+            var ischange = true;
+            while (ischange)
+            {
+                ischange = false;
+                for (var i = 0; i < animations.Count; i++)
+                {
+                    if (!shadows.Contains(new Point(animations[i].X / 60, animations[i].Y / 60)) && !HaveSpace(animations[i].X / 60, animations[i].Y / 60, shadows))
+                    {
+                        ischange = true;
+                        animations.Remove(animations[i]);
+                    }
+                }
+            }
+        }
+
+        private static HashSet<Point> FindShadows(int topPoint, HashSet<Point> shadows)
         {
             var shift = 0;
-            var start = player.Position.Y - vision;
-            var shadows = new List<Point>();
-            while (shift != vision + 1)
+            while (topPoint != player.Position.Y + vision)
             {
                 for (var i = 0; i <= shift; i++)
                 {
-                    if (start < 0 || start >= MapHeight) continue;
-                    if (i != 0 && !(player.Position.X - i < 0 || player.Position.X - i >= MapWidth))
-                    {
-                        if (map[player.Position.X - i, start] is Wall)
-                            SetShadows(player.Position.X - i, start, shadows);
-                    }
-                    if (!(player.Position.X + i < 0 || player.Position.X + i >= MapWidth))
-                    {
-                        if (map[player.Position.X + i, start] is Wall)
-                            SetShadows(player.Position.X + i, start, shadows);
-                    }
+                    if (InBounds(topPoint, MapHeight)) continue;
+
+                    if (!InBounds(player.Position.X - i, MapWidth) && map[player.Position.X - i, topPoint] is Wall)
+                        SetShadows(player.Position.X - i, topPoint, shadows);
+
+                    if (!InBounds(player.Position.X + i, MapWidth) && map[player.Position.X + i, topPoint] is Wall)
+                        SetShadows(player.Position.X + i, topPoint, shadows);
                 }
-                start++;
-                shift++;
-            }
-            shift = 0;
-            start = player.Position.Y + vision;
-            while (shift != vision)
-            {
-                for (var i = 0; i <= shift; i++)
-                {
-                    if (start < 0 || start >= MapHeight) continue;
-                    if (i != 0 && !(player.Position.X - i < 0 || player.Position.X - i >= MapWidth))
-                    {
-                        if (map[player.Position.X - i, start] is Wall)
-                            SetShadows(player.Position.X - i, start, shadows);
-                    }
-                    if (!(player.Position.X + i < 0 || player.Position.X + i >= MapWidth))
-                    {
-                        if (map[player.Position.X + i, start] is Wall)
-                            SetShadows(player.Position.X + i, start, shadows);
-                    }
-                }
-                start--;
-                shift++;
+                topPoint++;
+                shift = topPoint <= player.Position.Y ? shift + 1 : shift - 1;
             }
             return shadows;
         }
 
-        public static void SetShadows(int x, int y, List<Point> shadows)
+        public static void SetShadows(int x, int y, HashSet<Point> shadows)
         {
-            var xor = x;
-            var yor = y;
-            var delta = new Point();
-            if (x - player.Position.X == 0 && y - player.Position.Y < 0)
-                delta = new Point(0, -1);
-            else if (x - player.Position.X == 0 && y - player.Position.Y > 0)
-                delta = new Point(0, 1);
-            else if (x - player.Position.X > 0 && y - player.Position.Y == 0)
-                delta = new Point(1, 0);
-            else if (x - player.Position.X < 0 && y - player.Position.Y == 0)
-                delta = new Point(-1, 0);
-            else if (x - player.Position.X > 0 && y - player.Position.Y > 0)
-                delta = new Point(1, 1);
-            else if (x - player.Position.X < 0 && y - player.Position.Y > 0)
-                delta = new Point(-1, 1);
-            else if (x - player.Position.X < 0 && y - player.Position.Y < 0)
-                delta = new Point(-1, -1);
-            else if (x - player.Position.X > 0 && y - player.Position.Y < 0)
-                delta = new Point(1, -1);
-            x += delta.X;
-            y += delta.Y;
+            var deltaX = x - player.Position.X != 0 ? (x - player.Position.X) / Math.Abs(x - player.Position.X) : 0;
+            var deltaY = y - player.Position.Y != 0 ? (y - player.Position.Y) / Math.Abs(y - player.Position.Y) : 0;
+            var shift = new Point(deltaX, deltaY);
             while(Math.Abs(x - player.Position.X) + Math.Abs(y - player.Position.Y) <= vision)
             {
-                if ((x < 0 || x >= MapWidth) && (y < 0 || y >= MapHeight))
+                x += shift.X;
+                y += shift.Y;
+                if ((x < 0 || x >= MapWidth) || (y < 0 || y >= MapHeight))
                     break;
                 shadows.Add(new Point(x, y));
-                if((x + 1 != xor || y != yor) && !(x  + 1 < 0 || x + 1 >= MapWidth) && !(y < 0 || y >= MapHeight) && !(map[x + 1, y] is Wall))
+                if(!InBounds(x + 1, MapWidth) && !(map[x + 1, y] is Wall))
                     shadows.Add(new Point(x + 1, y));
-                if((x - 1 != xor || y != yor) && !(x - 1 < 0 || x - 1 >= MapWidth) && !(y < 0 || y >= MapHeight) && !(map[x - 1, y] is Wall))
+                if(!InBounds(x - 1, MapWidth) && !(map[x - 1, y] is Wall))
                     shadows.Add(new Point(x - 1, y));
-                if((x != xor || y + 1 != yor) && !(x < 0 || x >= MapWidth) && !(y + 1 < 0 || y + 1 >= MapHeight) && !(map[x, y + 1] is Wall))
+                if(!InBounds(y + 1, MapHeight) && !(map[x, y + 1] is Wall))
                     shadows.Add(new Point(x, y + 1));
-                if ((x != xor || y - 1 != yor) && !(x < 0 || x >= MapWidth) && !(y - 1 < 0 || y - 1 >= MapHeight) && !(map[x, y - 1] is Wall))
+                if (!InBounds(y - 1, MapHeight) && !(map[x, y - 1] is Wall))
                     shadows.Add(new Point(x, y - 1));
-                x += delta.X;
-                y += delta.Y;
             }
         }
 
-        public static bool HaveSpace(int x, int y, List<Point> shadows)
+        private static bool HaveSpace(int x, int y, HashSet<Point> shadows)
         {
             if (x + 1 < MapWidth && Math.Abs(x + 1 - player.Position.X) + Math.Abs(y - player.Position.Y) <= vision && map[x + 1, y] is Floor && !shadows.Contains(new Point(x + 1, y)))
                 return true;
