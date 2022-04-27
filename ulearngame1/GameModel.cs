@@ -10,43 +10,40 @@ namespace ulearngame1
     class GameModel
     {
         public const int ElementSize = 60;
-        public static List<IPlaceable> animations = new List<IPlaceable>();
         public static IPlaceable[,] map = Map.CreateMap();
+        public static List<IPlaceable> animations = FindImoveble();
+        public static List<IPlaceable> anima = new List<IPlaceable>();
         public static int MapWidth => map.GetLength(0);
         public static int MapHeight => map.GetLength(1);
         public static bool keyPressed = false;
         public static int MoveSpeed = 5;
         public static Player player;
         public static int vision = 5;
-        public static void DevVision()
-        {
-            for (var x = 0; x < MapWidth; x++)
-            {
-                for (var y = 0; y < MapHeight; y++)
-                {
-                    var creature = map[x, y];
 
-                    if (creature == null) continue;
-                    if (creature is Imoveble)
-                    {
-                        animations.Add(creature);
-                        player = new Player(x, y);
-                        animations.Add(new Floor(x, y));
-                    }
-                    else
-                        animations.Add(creature);
-                }
-            }
+        private static List<IPlaceable> FindImoveble()
+        {
+            var animations = new List<IPlaceable>();
+            foreach (var item in map)
+                if (item is Imoveble)
+                    animations.Add(item);
+            return animations;
         }
 
         public static void GetVision()
         {
-            animations.Clear();
-            //var shadows = new List<Point>();
-            var shadows = FindShadows(player.Position.Y - vision, new HashSet<Point>()); ;
-            DoSectorVisibility(player.Position.Y - vision, shadows);
-            FindSingleObject(shadows);
-            animations.Add(player);
+            anima.Clear();
+            foreach (var item in animations)
+            {
+                var animationss = new List<IPlaceable>();
+                var creature  = (Imoveble)item;
+                vision = creature.vision;
+                //var shadows = new List<Point>();
+                var shadows = FindShadows(creature.Position.Y - vision, new HashSet<Point>(), creature);
+                DoSectorVisibility(creature.Position.Y - vision, shadows, animationss, creature);
+                FindSingleObject(shadows, animationss, creature);
+                anima = anima.Concat(animationss).ToList();
+            }
+            anima = anima.Concat(animations).ToList();
         }
 
         private static bool InBounds(int point, int MaxValue)
@@ -54,36 +51,36 @@ namespace ulearngame1
             return point < 0 || point >= MaxValue;
         }
 
-        private static bool IsShadow(HashSet<Point> shadows, int position, int topPoint)
+        private static bool IsShadow(HashSet<Point> shadows, int position, int topPoint, Imoveble creature)
         {
             return !shadows.Contains(new Point(position, topPoint)) &&
-                        HaveSpace(position, topPoint, shadows);
+                        HaveSpace(position, topPoint, shadows, creature);
         }
 
-        private static void DoSectorVisibility(int topPoint, HashSet<Point> shadows)
+        private static void DoSectorVisibility(int topPoint, HashSet<Point> shadows, List<IPlaceable> animations, Imoveble creature)
         {
             var shift = 0;
-            while (topPoint != player.Position.Y + vision)
+            while (topPoint != creature.Position.Y + vision + 1)
             {
                 for (var i = 0; i <= shift; i++)
                 {
                     if (InBounds(topPoint, MapHeight)) continue;
 
-                    if (!InBounds(player.Position.X - i, MapWidth) && IsShadow(shadows, player.Position.X - i, topPoint))
-                        animations.Add(map[player.Position.X - i, topPoint]);
+                    if (!InBounds(creature.Position.X - i, MapWidth) && IsShadow(shadows, creature.Position.X - i, topPoint, creature))
+                        animations.Add(map[creature.Position.X - i, topPoint]);
 
-                    if (!InBounds(player.Position.X + i, MapWidth) && map[player.Position.X + i, topPoint] is Player)
-                        map[player.Position.X, player.Position.Y] = new Floor(player.Position.X, player.Position.Y);
+                    if (!InBounds(creature.Position.X + i, MapWidth) && (map[creature.Position.X + i, topPoint] is Imoveble))
+                        map[creature.Position.X + i, topPoint] = new Floor(creature.Position.X + i, topPoint);
 
-                    if (!InBounds(player.Position.X + i, MapWidth) && IsShadow(shadows, player.Position.X + i, topPoint))
-                        animations.Add(map[player.Position.X + i, topPoint]);
+                    if (!InBounds(creature.Position.X + i, MapWidth) && IsShadow(shadows, creature.Position.X + i, topPoint, creature))
+                        animations.Add(map[creature.Position.X + i, topPoint]);
                 }
                 topPoint++;
-                shift = topPoint <= player.Position.Y ? shift + 1 : shift - 1;
+                shift = topPoint <= creature.Position.Y ? shift + 1 : shift - 1;
             }
         }
 
-        private static void FindSingleObject(HashSet<Point> shadows)
+        private static void FindSingleObject(HashSet<Point> shadows, List<IPlaceable> animations, Imoveble creature)
         {
             var ischange = true;
             while (ischange)
@@ -91,7 +88,7 @@ namespace ulearngame1
                 ischange = false;
                 for (var i = 0; i < animations.Count; i++)
                 {
-                    if (!shadows.Contains(new Point(animations[i].X / 60, animations[i].Y / 60)) && !HaveSpace(animations[i].X / 60, animations[i].Y / 60, shadows))
+                    if (!shadows.Contains(new Point(animations[i].X / 60, animations[i].Y / 60)) && !HaveSpace(animations[i].X / 60, animations[i].Y / 60, shadows, creature))
                     {
                         ischange = true;
                         animations.Remove(animations[i]);
@@ -100,33 +97,33 @@ namespace ulearngame1
             }
         }
 
-        private static HashSet<Point> FindShadows(int topPoint, HashSet<Point> shadows)
+        private static HashSet<Point> FindShadows(int topPoint, HashSet<Point> shadows, Imoveble creature)
         {
             var shift = 0;
-            while (topPoint != player.Position.Y + vision)
+            while (topPoint != creature.Position.Y + vision)
             {
                 for (var i = 0; i <= shift; i++)
                 {
                     if (InBounds(topPoint, MapHeight)) continue;
 
-                    if (!InBounds(player.Position.X - i, MapWidth) && map[player.Position.X - i, topPoint] is Wall)
-                        SetShadows(player.Position.X - i, topPoint, shadows);
+                    if (!InBounds(creature.Position.X - i, MapWidth) && map[creature.Position.X - i, topPoint] is Wall)
+                        SetShadows(creature.Position.X - i, topPoint, shadows, creature);
 
-                    if (!InBounds(player.Position.X + i, MapWidth) && map[player.Position.X + i, topPoint] is Wall)
-                        SetShadows(player.Position.X + i, topPoint, shadows);
+                    if (!InBounds(creature.Position.X + i, MapWidth) && map[creature.Position.X + i, topPoint] is Wall)
+                        SetShadows(creature.Position.X + i, topPoint, shadows, creature);
                 }
                 topPoint++;
-                shift = topPoint <= player.Position.Y ? shift + 1 : shift - 1;
+                shift = topPoint <= creature.Position.Y ? shift + 1 : shift - 1;
             }
             return shadows;
         }
 
-        public static void SetShadows(int x, int y, HashSet<Point> shadows)
+        public static void SetShadows(int x, int y, HashSet<Point> shadows, Imoveble creature)
         {
-            var deltaX = x - player.Position.X != 0 ? (x - player.Position.X) / Math.Abs(x - player.Position.X) : 0;
-            var deltaY = y - player.Position.Y != 0 ? (y - player.Position.Y) / Math.Abs(y - player.Position.Y) : 0;
+            var deltaX = x - creature.Position.X != 0 ? (x - creature.Position.X) / Math.Abs(x - creature.Position.X) : 0;
+            var deltaY = y - creature.Position.Y != 0 ? (y - creature.Position.Y) / Math.Abs(y - creature.Position.Y) : 0;
             var shift = new Point(deltaX, deltaY);
-            while(Math.Abs(x - player.Position.X) + Math.Abs(y - player.Position.Y) <= vision)
+            while(Math.Abs(x - creature.Position.X) + Math.Abs(y - creature.Position.Y) <= vision)
             {
                 x += shift.X;
                 y += shift.Y;
@@ -144,15 +141,15 @@ namespace ulearngame1
             }
         }
 
-        private static bool HaveSpace(int x, int y, HashSet<Point> shadows)
+        private static bool HaveSpace(int x, int y, HashSet<Point> shadows, Imoveble creature)
         {
-            if (x + 1 < MapWidth && Math.Abs(x + 1 - player.Position.X) + Math.Abs(y - player.Position.Y) <= vision && map[x + 1, y] is Floor && !shadows.Contains(new Point(x + 1, y)))
+            if (x + 1 < MapWidth && Math.Abs(x + 1 - creature.Position.X) + Math.Abs(y - creature.Position.Y) <= vision && map[x + 1, y] is Floor && !shadows.Contains(new Point(x + 1, y)))
                 return true;
-            if (x - 1 > 0 && Math.Abs(x - 1 - player.Position.X) + Math.Abs(y - player.Position.Y) <= vision && map[x - 1, y] is Floor && !shadows.Contains(new Point(x - 1, y)))
+            if (x - 1 > 0 && Math.Abs(x - 1 - creature.Position.X) + Math.Abs(y - creature.Position.Y) <= vision && map[x - 1, y] is Floor && !shadows.Contains(new Point(x - 1, y)))
                 return true;
-            if (y + 1 < MapHeight && Math.Abs(x - player.Position.X) + Math.Abs(y + 1 - player.Position.Y) <= vision && map[x, y + 1] is Floor && !shadows.Contains(new Point(x, y + 1)))
+            if (y + 1 < MapHeight && Math.Abs(x - creature.Position.X) + Math.Abs(y + 1 - creature.Position.Y) <= vision && map[x, y + 1] is Floor && !shadows.Contains(new Point(x, y + 1)))
                 return true;
-            if (y - 1 > 0 && Math.Abs(x - player.Position.X) + Math.Abs(y - 1 - player.Position.Y) <= vision &&  map[x, y - 1] is Floor && !shadows.Contains(new Point(x, y - 1)))
+            if (y - 1 > 0 && Math.Abs(x - creature.Position.X) + Math.Abs(y - 1 - creature.Position.Y) <= vision && map[x, y - 1] is Floor && !shadows.Contains(new Point(x, y - 1)))
                 return true;
             shadows.Add(new Point(x, y));
             return false;

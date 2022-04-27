@@ -12,10 +12,10 @@ namespace ulearngame1
     {
         public static void UpdateTextures(Graphics g, bool keyPressed)
         {
-            foreach (var item in GameModel.animations)
+            foreach (var item in GameModel.anima)
                 if (!(item is Imoveble))
                     item.PlayAnimation(g, keyPressed);
-            foreach (var item in GameModel.animations)
+            foreach (var item in GameModel.anima)
                 if (item is Imoveble)
                 {
                     if(item is Player)

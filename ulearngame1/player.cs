@@ -29,6 +29,7 @@ namespace ulearngame1
         public Point Position { get; set; }
         public bool PositionChanged { get; set; }
         public int moveSpeed { get; set; }
+        public int vision { get; set; }
 
         public Player() 
         {
@@ -41,6 +42,7 @@ namespace ulearngame1
             X = (x * GameModel.ElementSize) - 30;
             Y = (y * GameModel.ElementSize) - 30;
             Position = new Point(x, y);
+            vision = 5;
             moveSpeed = 5;
         }
 

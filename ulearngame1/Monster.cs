@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ulearngame1
 {
@@ -18,6 +14,7 @@ namespace ulearngame1
         public Point Position { get; set; }
         public bool PositionChanged { get; set; }
         public int moveSpeed { get; set; }
+        public int vision { get; set; }
 
         public bool left, right, top, bottom;
         public Monster(int x, int y)
@@ -26,6 +23,7 @@ namespace ulearngame1
             X = (x * GameModel.ElementSize) - 30;
             Y = (y * GameModel.ElementSize) - 30;
             Position = new Point(x, y);
+            vision = 4;
             moveSpeed = 6;
             PositionChanged = true;
         }
@@ -54,9 +52,9 @@ namespace ulearngame1
                 else
                     Move.MoveX(this, 0, 60, -1);
             }
-            else if(GameModel.player != null && Math.Abs(GameModel.player.Position.Y - Position.Y) <= 5 && Position.X == GameModel.player.Position.X)
+            else if (GameModel.player != null && Math.Abs(GameModel.player.Position.Y - Position.Y) <= 5 && Position.X == GameModel.player.Position.X)
             {
-                if(GameModel.player.Position.Y >= Position.Y)
+                if (GameModel.player.Position.Y >= Position.Y)
                     Move.MoveY(this, 60, 0, 1);
                 else
                     Move.MoveY(this, 0, 60, -1);
@@ -98,7 +96,7 @@ namespace ulearngame1
                         PositionChanged = true;
                 }
             }
-           
+
         }
     }
 }

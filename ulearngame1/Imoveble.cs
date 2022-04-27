@@ -14,5 +14,6 @@ namespace ulearngame1
         Point Position { get; set; }
         bool PositionChanged { get; set; }
         int moveSpeed { get; set; }
+        int vision { get; set; }
     }
 }
