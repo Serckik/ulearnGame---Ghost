@@ -8,15 +8,15 @@ using System.Windows.Forms;
 
 namespace ulearngame1
 {
-    class view
+    class View
     {
         public static void UpdateTextures(Graphics g, bool keyPressed)
         {
-            foreach (var item in GameModel.anima)
-                if (!(item is Imoveble))
+            foreach (var item in GameModel.VisionObjects)
+                if (!(item is IMoveble))
                     item.PlayAnimation(g, keyPressed);
-            foreach (var item in GameModel.anima)
-                if (item is Imoveble)
+            foreach (var item in GameModel.VisionObjects)
+                if (item is IMoveble)
                 {
                     if(item is Player)
                     {
@@ -27,7 +27,8 @@ namespace ulearngame1
                     else
                     {
                         var monster = (Monster)item;
-                        monster.PlayAnimation(g, keyPressed);
+                        if(monster.IsVisible)
+                            monster.PlayAnimation(g, keyPressed);
                         monster.MonsterMove();
                     }
                 }

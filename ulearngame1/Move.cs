@@ -9,33 +9,33 @@ namespace ulearngame1
 {
     class Move
     {
-        public static void MoveX(Imoveble creature, int maximum, int minimum, int delta)
+        public static void MoveX(IMoveble creature, int maximum, int minimum, int delta)
         {
-            if ((creature.shiftY <= 10 || creature.shiftY >= -10) && creature.shiftX != maximum)
+            if ((creature.ShiftY <= 10 || creature.ShiftY >= -10) && creature.ShiftX != maximum)
             {
-                creature.X += creature.moveSpeed * delta;
-                creature.shiftX += creature.moveSpeed * delta;
+                creature.X += creature.MoveSpeed * delta;
+                creature.ShiftX += creature.MoveSpeed * delta;
             }
-            if (creature.shiftX == maximum && !(GameModel.map[creature.Position.X + delta, creature.Position.Y] is Wall))
+            if (creature.ShiftX == maximum && !(GameModel.map[creature.Position.X + delta, creature.Position.Y] is Wall))
             {
                 creature.Position = new Point(creature.Position.X + delta, creature.Position.Y);
                 creature.PositionChanged = true;
-                creature.shiftX = minimum;
+                creature.ShiftX = minimum;
             }
         }
 
-        public static void MoveY(Imoveble creature, int maximum, int minimum, int delta)
+        public static void MoveY(IMoveble creature, int maximum, int minimum, int delta)
         {
-            if ((creature.shiftX <= 10 || creature.shiftX >= -10) && creature.shiftY != maximum)
+            if ((creature.ShiftX <= 10 || creature.ShiftX >= -10) && creature.ShiftY != maximum)
             {
-                creature.Y += creature.moveSpeed * delta;
-                creature.shiftY += creature.moveSpeed * delta;
+                creature.Y += creature.MoveSpeed * delta;
+                creature.ShiftY += creature.MoveSpeed * delta;
             }
-            if (creature.shiftY == maximum && !(GameModel.map[creature.Position.X, creature.Position.Y + delta] is Wall))
+            if (creature.ShiftY == maximum && !(GameModel.map[creature.Position.X, creature.Position.Y + delta] is Wall))
             {
                 creature.Position = new Point(creature.Position.X, creature.Position.Y + delta);
                 creature.PositionChanged = true;
-                creature.shiftY = minimum;
+                creature.ShiftY = minimum;
             }
         }
     }

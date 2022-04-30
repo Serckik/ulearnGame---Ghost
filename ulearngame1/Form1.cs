@@ -45,7 +45,7 @@ namespace ulearngame1
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            view.UpdateTextures(e.Graphics, GameModel.keyPressed);
+            View.UpdateTextures(e.Graphics, GameModel.keyPressed);
         }
     }
 }

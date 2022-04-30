@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace ulearngame1
 {
-    interface Imoveble : IPlaceable
+    interface IMoveble : IPlaceable
     {
-        int shiftX { get; set; }
-        int shiftY { get; set; }
+        int ShiftX { get; set; }
+        int ShiftY { get; set; }
         Point Position { get; set; }
         bool PositionChanged { get; set; }
-        int moveSpeed { get; set; }
-        int vision { get; set; }
+        int MoveSpeed { get; set; }
+        int Vision { get; set; }
+        bool IsVisible { get; set; }
     }
 }

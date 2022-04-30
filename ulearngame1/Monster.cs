@@ -3,18 +3,19 @@ using System.Drawing;
 
 namespace ulearngame1
 {
-    class Monster : Imoveble
+    class Monster : IMoveble
     {
         public int X { get; set; }
         public int Y { get; set; }
         public Bitmap image { get; set; }
         public string name { get; set; }
-        public int shiftX { get; set; }
-        public int shiftY { get; set; }
+        public int ShiftX { get; set; }
+        public int ShiftY { get; set; }
         public Point Position { get; set; }
         public bool PositionChanged { get; set; }
-        public int moveSpeed { get; set; }
-        public int vision { get; set; }
+        public int MoveSpeed { get; set; }
+        public int Vision { get; set; }
+        public bool IsVisible { get; set; }
 
         public bool left, right, top, bottom;
         public Monster(int x, int y)
@@ -23,9 +24,10 @@ namespace ulearngame1
             X = (x * GameModel.ElementSize) - 30;
             Y = (y * GameModel.ElementSize) - 30;
             Position = new Point(x, y);
-            vision = 4;
-            moveSpeed = 6;
+            Vision = 4;
+            MoveSpeed = 6;
             PositionChanged = true;
+            IsVisible = false;
         }
 
         public void PlayAnimation(Graphics g, bool keyPressed)
@@ -34,16 +36,16 @@ namespace ulearngame1
         }
 
         private int number;
-        private Random random = new Random();
+        private readonly Random random = new Random();
         public void MonsterMove()
         {
-            right = !(GameModel.map[Position.X + 1, Position.Y] is Wall) ? true : false;
+            right = !(GameModel.map[Position.X + 1, Position.Y] is Wall);
 
-            left = !(GameModel.map[Position.X - 1, Position.Y] is Wall) ? true : false;
+            left = !(GameModel.map[Position.X - 1, Position.Y] is Wall);
 
-            bottom = !(GameModel.map[Position.X, Position.Y + 1] is Wall) ? true : false;
+            bottom = !(GameModel.map[Position.X, Position.Y + 1] is Wall);
 
-            top = !(GameModel.map[Position.X, Position.Y - 1] is Wall) ? true : false;
+            top = !(GameModel.map[Position.X, Position.Y - 1] is Wall);
 
             if (GameModel.player != null && Math.Abs(GameModel.player.Position.X - Position.X) <= 5 && Position.Y == GameModel.player.Position.Y)
             {

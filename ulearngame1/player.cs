@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace ulearngame1
 {
-    class Player : Imoveble
+    class Player : IMoveble
     {
         public int X { get; set; }
         public int Y { get; set; }
@@ -24,12 +24,13 @@ namespace ulearngame1
 
         public Bitmap image { get; set; }
         public string name { get; set; }
-        public int shiftX { get; set; }
-        public int shiftY { get; set; }
+        public int ShiftX { get; set; }
+        public int ShiftY { get; set; }
         public Point Position { get; set; }
         public bool PositionChanged { get; set; }
-        public int moveSpeed { get; set; }
-        public int vision { get; set; }
+        public int MoveSpeed { get; set; }
+        public int Vision { get; set; }
+        public bool IsVisible { get; set; }
 
         public Player() 
         {
@@ -42,8 +43,8 @@ namespace ulearngame1
             X = (x * GameModel.ElementSize) - 30;
             Y = (y * GameModel.ElementSize) - 30;
             Position = new Point(x, y);
-            vision = 5;
-            moveSpeed = 5;
+            Vision = 5;
+            MoveSpeed = 5;
         }
 
         public void PlayerMove()
