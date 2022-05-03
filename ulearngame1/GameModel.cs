@@ -16,9 +16,8 @@ namespace ulearngame1
         public static int MapWidth => map.GetLength(0);
         public static int MapHeight => map.GetLength(1);
         public static bool keyPressed = false;
-        public static int MoveSpeed = 5;
         public static Player player;
-        public static int vision = 5;
+        public static int vision;
 
         private static List<IPlaceable> FindImoveble()
         {
@@ -48,16 +47,19 @@ namespace ulearngame1
                 var animations = new List<IPlaceable>();
                 var creature  = (IMoveble)item;
                 vision = creature.Vision;
-                //var shadows = new List<Point>();
                 var shadows = FindShadows(creature.Position.Y - vision, new HashSet<Point>(), creature);
+                //if (item is Player) shadows = new HashSet<Point>();
                 DoSectorVisibility(creature.Position.Y - vision, shadows, animations, creature);
                 FindSingleObject(shadows, animations, creature);
 
                 if(item is Player)
                     VisionObjects = VisionObjects.Concat(animations).ToList();
 
+                creature.VisionObjects = animations;
+
                 creature.IsVisible = item is Monster && 
                     VisionObjects.Where(x => x.X / 60 == creature.Position.X && x.Y / 60 == creature.Position.Y).Count() != 0;
+
             }
             VisionObjects = VisionObjects.Concat(Imoveble).ToList();
         }

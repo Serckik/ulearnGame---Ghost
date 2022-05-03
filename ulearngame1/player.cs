@@ -31,6 +31,7 @@ namespace ulearngame1
         public int MoveSpeed { get; set; }
         public int Vision { get; set; }
         public bool IsVisible { get; set; }
+        public List<IPlaceable> VisionObjects { get; set; }
 
         public Player() 
         {

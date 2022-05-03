@@ -16,5 +16,6 @@ namespace ulearngame1
         int MoveSpeed { get; set; }
         int Vision { get; set; }
         bool IsVisible { get; set; }
+        List<IPlaceable> VisionObjects { get; set; }
     }
 }

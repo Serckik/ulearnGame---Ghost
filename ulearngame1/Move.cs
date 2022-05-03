@@ -11,7 +11,7 @@ namespace ulearngame1
     {
         public static void MoveX(IMoveble creature, int maximum, int minimum, int delta)
         {
-            if ((creature.ShiftY <= 10 || creature.ShiftY >= -10) && creature.ShiftX != maximum)
+            if (creature.ShiftX != maximum)
             {
                 creature.X += creature.MoveSpeed * delta;
                 creature.ShiftX += creature.MoveSpeed * delta;
@@ -26,7 +26,7 @@ namespace ulearngame1
 
         public static void MoveY(IMoveble creature, int maximum, int minimum, int delta)
         {
-            if ((creature.ShiftX <= 10 || creature.ShiftX >= -10) && creature.ShiftY != maximum)
+            if (creature.ShiftY != maximum)
             {
                 creature.Y += creature.MoveSpeed * delta;
                 creature.ShiftY += creature.MoveSpeed * delta;

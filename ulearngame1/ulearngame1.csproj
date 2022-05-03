@@ -46,8 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Move.cs" />
     <Compile Include="Monster.cs" />
+    <Compile Include="Move.cs" />
     <Compile Include="view.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="GameModel.cs" />
@@ -121,9 +121,6 @@
     <None Include="Resources\red hood itch free Copy-Sheet.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\idle sheet-Sheet.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\scale.png" />
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +155,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\monster.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\idle sheet-Sheet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\idle sheet-Sheet 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\idle sheet-Sheet %281%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
