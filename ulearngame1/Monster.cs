@@ -5,6 +5,14 @@ using System.Linq;
 
 namespace ulearngame1
 {
+    enum Directions
+    {
+        left,
+        right,
+        top,
+        bottom,
+        None
+    }
     class Monster : IMoveble
     {
         public int X { get; set; }
@@ -21,6 +29,7 @@ namespace ulearngame1
         public bool IsVisible { get; set; }
         public Point LastSeePlayer = new Point(-1, -1);
         public bool SeePlayer;
+        public Directions direction;
 
         public bool left, right, top, bottom;
         public Monster(int x, int y)
@@ -29,7 +38,7 @@ namespace ulearngame1
             X = (x * GameModel.ElementSize) - 30;
             Y = (y * GameModel.ElementSize) - 30;
             Position = new Point(x, y);
-            Vision = 4;
+            Vision = 3;
             MoveSpeed = 5;
             PositionChanged = true;
             IsVisible = false;
@@ -72,39 +81,42 @@ namespace ulearngame1
             }
             else
             {
-                if (PositionChanged)
+                if(direction != Directions.None && (left || right) && (top || bottom) && PositionChanged)
                 {
                     PositionChanged = false;
-                    number = random.Next(1, 5);
+                    while (true)
+                    {
+                        number = random.Next(1, 5);
+                        if (number == 1 && left && direction != Directions.right)
+                            break;
+                        if (number == 2 && right && direction != Directions.left)
+                            break;
+                        if (number == 3 && top && direction != Directions.bottom)
+                            break;
+                        if (number == 4 && bottom && direction != Directions.top)
+                            break;
+                    }
                 }
 
                 if (number == 1)
                 {
-                    if (left)
-                        Move.MoveX(this, 0, 60, -1);
-                    else
-                        PositionChanged = true;
+                    Move.MoveX(this, 0, 60, -1);
+                    direction = 0;
                 }
                 else if (number == 2)
                 {
-                    if (right)
-                        Move.MoveX(this, 60, 0, 1);
-                    else
-                        PositionChanged = true;
+                    Move.MoveX(this, 60, 0, 1);
+                    direction = (Directions)1;
                 }
                 else if (number == 3)
                 {
-                    if (top)
-                        Move.MoveY(this, 0, 60, -1);
-                    else
-                        PositionChanged = true;
+                    Move.MoveY(this, 0, 60, -1);
+                    direction = (Directions)2;
                 }
                 else if (number == 4)
                 {
-                    if (bottom)
-                        Move.MoveY(this, 60, 0, 1);
-                    else
-                        PositionChanged = true;
+                    Move.MoveY(this, 60, 0, 1);
+                    direction = (Directions)3;
                 }
             }
 
