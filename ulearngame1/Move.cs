@@ -16,7 +16,8 @@ namespace ulearngame1
                 creature.X += creature.MoveSpeed * delta;
                 creature.ShiftX += creature.MoveSpeed * delta;
             }
-            if (creature.ShiftX == maximum && !(GameModel.map[creature.Position.X + delta, creature.Position.Y] is Wall))
+            if (creature.ShiftX == maximum && !(GameModel.map[creature.Position.X + delta, creature.Position.Y] is Wall 
+                || GameModel.map[creature.Position.X + delta, creature.Position.Y] is ClosedDoor))
             {
                 creature.Position = new Point(creature.Position.X + delta, creature.Position.Y);
                 creature.PositionChanged = true;
@@ -31,7 +32,8 @@ namespace ulearngame1
                 creature.Y += creature.MoveSpeed * delta;
                 creature.ShiftY += creature.MoveSpeed * delta;
             }
-            if (creature.ShiftY == maximum && !(GameModel.map[creature.Position.X, creature.Position.Y + delta] is Wall))
+            if (creature.ShiftY == maximum && !(GameModel.map[creature.Position.X, creature.Position.Y + delta] is Wall
+                || GameModel.map[creature.Position.X, creature.Position.Y + delta] is ClosedDoor))
             {
                 creature.Position = new Point(creature.Position.X, creature.Position.Y + delta);
                 creature.PositionChanged = true;

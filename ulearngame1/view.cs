@@ -24,7 +24,7 @@ namespace ulearngame1
                         GameModel.player.PlayAnimation(g, keyPressed);
                         GameModel.player.PlayerMove();
                     }
-                    else
+                    else if(item is Monster)
                     {
                         var monster = (Monster)item;
                         if(monster.IsVisible)

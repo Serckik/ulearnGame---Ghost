@@ -15,6 +15,7 @@ namespace ulearngame1
         public static List<IPlaceable> VisionObjects = new List<IPlaceable>();
         public static int MapWidth => map.GetLength(0);
         public static int MapHeight => map.GetLength(1);
+        public static int KeysFound = 0;
         public static bool keyPressed = false;
         public static Player player;
         public static int vision;
@@ -45,19 +46,19 @@ namespace ulearngame1
             foreach (var item in Imoveble)
             {
                 var animations = new List<IPlaceable>();
-                var creature  = (IMoveble)item;
+                var creature = (IMoveble)item;
                 vision = creature.Vision;
                 var shadows = FindShadows(creature.Position.Y - vision, new HashSet<Point>(), creature);
                 //if (item is Player) shadows = new HashSet<Point>();
                 DoSectorVisibility(creature.Position.Y - vision, shadows, animations, creature);
                 FindSingleObject(shadows, animations, creature);
 
-                if(item is Player)
+                if (item is Player)
                     VisionObjects = VisionObjects.Concat(animations).ToList();
 
                 creature.VisionObjects = animations;
 
-                creature.IsVisible = item is Monster && 
+                creature.IsVisible = item is Monster &&
                     VisionObjects.Where(x => x.X / 60 == creature.Position.X && x.Y / 60 == creature.Position.Y).Count() != 0;
 
             }
@@ -138,18 +139,18 @@ namespace ulearngame1
             var deltaX = x - creature.Position.X != 0 ? (x - creature.Position.X) / Math.Abs(x - creature.Position.X) : 0;
             var deltaY = y - creature.Position.Y != 0 ? (y - creature.Position.Y) / Math.Abs(y - creature.Position.Y) : 0;
             var shift = new Point(deltaX, deltaY);
-            while(Math.Abs(x - creature.Position.X) + Math.Abs(y - creature.Position.Y) <= vision)
+            while (Math.Abs(x - creature.Position.X) + Math.Abs(y - creature.Position.Y) <= vision)
             {
                 x += shift.X;
                 y += shift.Y;
                 if ((x < 0 || x >= MapWidth) || (y < 0 || y >= MapHeight))
                     break;
                 shadows.Add(new Point(x, y));
-                if(!InBounds(x + 1, MapWidth) && !(map[x + 1, y] is Wall))
+                if (!InBounds(x + 1, MapWidth) && !(map[x + 1, y] is Wall))
                     shadows.Add(new Point(x + 1, y));
-                if(!InBounds(x - 1, MapWidth) && !(map[x - 1, y] is Wall))
+                if (!InBounds(x - 1, MapWidth) && !(map[x - 1, y] is Wall))
                     shadows.Add(new Point(x - 1, y));
-                if(!InBounds(y + 1, MapHeight) && !(map[x, y + 1] is Wall))
+                if (!InBounds(y + 1, MapHeight) && !(map[x, y + 1] is Wall))
                     shadows.Add(new Point(x, y + 1));
                 if (!InBounds(y - 1, MapHeight) && !(map[x, y - 1] is Wall))
                     shadows.Add(new Point(x, y - 1));
@@ -158,13 +159,13 @@ namespace ulearngame1
 
         private static bool HaveSpace(int x, int y, HashSet<Point> shadows, IMoveble creature)
         {
-            if (x + 1 < MapWidth && Math.Abs(x + 1 - creature.Position.X) + Math.Abs(y - creature.Position.Y) <= vision && map[x + 1, y] is Floor && !shadows.Contains(new Point(x + 1, y)))
+            if (x + 1 < MapWidth && (Math.Abs(x + 1 - creature.Position.X) + Math.Abs(y - creature.Position.Y) <= vision && map[x + 1, y] is InotShadow) && !shadows.Contains(new Point(x + 1, y)))
                 return true;
-            if (x - 1 > 0 && Math.Abs(x - 1 - creature.Position.X) + Math.Abs(y - creature.Position.Y) <= vision && map[x - 1, y] is Floor && !shadows.Contains(new Point(x - 1, y)))
+            if (x - 1 > 0 && (Math.Abs(x - 1 - creature.Position.X) + Math.Abs(y - creature.Position.Y) <= vision && map[x - 1, y] is InotShadow)&& !shadows.Contains(new Point(x - 1, y)))
                 return true;
-            if (y + 1 < MapHeight && Math.Abs(x - creature.Position.X) + Math.Abs(y + 1 - creature.Position.Y) <= vision && map[x, y + 1] is Floor && !shadows.Contains(new Point(x, y + 1)))
+            if (y + 1 < MapHeight && (Math.Abs(x - creature.Position.X) + Math.Abs(y + 1 - creature.Position.Y) <= vision && map[x, y + 1] is InotShadow) && !shadows.Contains(new Point(x, y + 1)))
                 return true;
-            if (y - 1 > 0 && Math.Abs(x - creature.Position.X) + Math.Abs(y - 1 - creature.Position.Y) <= vision && map[x, y - 1] is Floor && !shadows.Contains(new Point(x, y - 1)))
+            if (y - 1 > 0 && (Math.Abs(x - creature.Position.X) + Math.Abs(y - 1 - creature.Position.Y) <= vision && map[x, y - 1] is InotShadow) && !shadows.Contains(new Point(x, y - 1)))
                 return true;
             shadows.Add(new Point(x, y));
             return false;

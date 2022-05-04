@@ -10,10 +10,10 @@ namespace ulearngame1
     class Map
     {
         private const string levelExample = @"
-WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-/EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE|
+WWWWWWWWWWWWWWWDWWWWWWWWWWWWWWWW
+/EEEEEEEEEEEEEEPEEEEEEEEEEEEEEE|
 /EWWWWWWWWWWWWWEWWWWWWWWWWWWWWE|
-/EWEEEEEEEEWEEEMEEEWEEEEEEEEEWE|
+/EWKEEEEEEEWEEEEEEEWEEEEEEEEKWE|
 /EWWWWEEEEEEEEEEEEEEEEEEEEWWWWE|
 /EWEEWEEEEEWWWWEWWWWEEEEEEWEEWE|
 /EWEEWEEEEEWEEEEEEEWEEEEEEWEEWE|
@@ -23,8 +23,8 @@ WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 /EWEEWEEEEEWEEEEEEEWEEEEEEWEEWE|
 /EWEEWEEEEEWEEEEEEEWEEEEEEWEEWE|
 /EWWWWEEEEEWWWWEWWWWEEEEEEWWWWE|
-/EWEEEEEEEEEEEEEPEEEEEEEEEEEEWE|
-/EWEEEEEEEEWEEEEEEEWEEEEEEEEEWE|
+/EWEEEEEEEEEEEEEEEEEEEEEEEEEEWE|
+/EWKEEEEEEEWEEEEEEEWEEEEEEEMKWE|
 /EWWWWWWWWWWWWWEWWWWWWWWWWWWWWE|
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE|
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
@@ -107,9 +107,16 @@ EEEEEEEEEEW
 EEEEEEEEEEW
 EEEEEEEEEEW";
 
+        private const string KeyAndDoorsTest = @"
+WWWWWWWWWWW
+WEEEEEKEEWW
+WEEKEPEEEDE
+WKEEEEEKEWW
+WWWWWWWWWWW";
+
         public static IPlaceable[,] CreateMap()
         {
-            return CreateMap(levelExample);
+            return CreateMap(KeyAndDoorsTest);
         }
 
         private static IPlaceable[,] CreateMap(string map, string separator = "\r\n")
@@ -140,6 +147,10 @@ EEEEEEEEEEW";
                     return new Wall(Resource1.WallLeft, x, y);
                 case '|':
                     return new Wall(Resource1.WallRight, x, y);
+                case 'K':
+                    return new Key(Resource1.Key, x, y);
+                case 'D':
+                    return new ClosedDoor(Resource1.ClosedDoor, x, y);
                 default:
                     throw new Exception($"wrong character for ICreature {c}");
             }

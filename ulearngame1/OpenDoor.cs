@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace ulearngame1
 {
-    class Floor : InotShadow
+    class OpenDoor : IPlaceable
     {
         public int X { get; set; }
         public int Y { get; set; }
         public Bitmap image { get; set; }
         public string name { get; set; }
 
-        public Floor(int x, int y)
+        public OpenDoor(Bitmap image, int x, int y)
         {
-            image = Resource1.Floor;
-            name = "Floor";
+            this.image = image;
+            name = "Key";
             X = x * GameModel.ElementSize;
             Y = y * GameModel.ElementSize;
         }
