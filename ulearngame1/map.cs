@@ -119,8 +119,9 @@ WWWWWWWWWWW";
             return CreateMap(KeyAndDoorsTest);
         }
 
-        private static IPlaceable[,] CreateMap(string map, string separator = "\r\n")
+        private static IPlaceable[,] CreateMap(string map)
         {
+            string separator = map[0] == '\r' ? "\r\n" : "\n";
             var rows = map.Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries);
             var result = new IPlaceable[rows[0].Length, rows.Length];
             for (var x = 0; x < rows[0].Length; x++)
