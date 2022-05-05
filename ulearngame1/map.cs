@@ -91,7 +91,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
 
         private const string TestShadow = @"
 WWWWWWWWWW
-EEEEPEEEEE
+EEEEPEEEME
 WWWWWWWWWW
 EEEEEEEEEE
 EEEEEEEEEE";
@@ -108,15 +108,16 @@ EEEEEEEEEEW
 EEEEEEEEEEW";
 
         private const string KeyAndDoorsTest = @"
-WWWWWWWWWWW
-WEEEEEKEEWW
-WEEKEPEEEDE
-WKEEEEEKEWW
-WWWWWWWWWWW";
+WWWWWWWWWWWW
+WEEEEEKEEWWW
+WEEKEPEEEDWW
+WKEEEEEKEWWW
+WWWWWWWWWWWW";
 
-        public static IPlaceable[,] CreateMap()
+        private static List<string> listMap = new List<string> { KeyAndDoorsTest, levelExample };
+        public static IPlaceable[,] CreateMap(int level)
         {
-            return CreateMap(KeyAndDoorsTest);
+            return CreateMap(listMap[level]);
         }
 
         private static IPlaceable[,] CreateMap(string map)

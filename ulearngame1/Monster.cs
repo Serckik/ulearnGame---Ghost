@@ -119,7 +119,6 @@ namespace ulearngame1
                     direction = (Directions)3;
                 }
             }
-
         }
     }
 }

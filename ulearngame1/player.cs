@@ -59,11 +59,15 @@ namespace ulearngame1
             else if (GameModel.player.bottom == true)
                 Move.MoveY(GameModel.player, 60, 0, 1);
             else GameModel.keyPressed = false;
+
+            if (GameModel.map[Position.X, Position.Y] is OpenDoor)
+                GameModel.GameIsWin();
         }
 
         public void PlayAnimation(Graphics g, bool keyPressed)
         {
             image = ChooseAnimation(keyPressed);
+            if (image == null) image = Resource1.Idle;
             g.DrawImage(image, new Rectangle(X, Y, widht, height), currentFrame * widht, 0, widht, height, GraphicsUnit.Pixel);
             if (currentFrame + 1 < 5)
                 currentFrame++;

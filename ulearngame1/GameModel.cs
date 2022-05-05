@@ -10,7 +10,7 @@ namespace ulearngame1
     class GameModel
     {
         public const int ElementSize = 60;
-        public static IPlaceable[,] map = Map.CreateMap();
+        public static IPlaceable[,] map = Map.CreateMap(level);
         public static List<IPlaceable> Imoveble = FindImoveble();
         public static List<IPlaceable> VisionObjects = new List<IPlaceable>();
         public static int MapWidth => map.GetLength(0);
@@ -19,6 +19,21 @@ namespace ulearngame1
         public static bool keyPressed = false;
         public static Player player;
         public static int vision;
+        public static int level = 0;
+
+        public static void GameIsOver()
+        {
+            map = Map.CreateMap(level);
+            Imoveble = FindImoveble();
+            KeysFound = 0;
+        }
+
+        public static void GameIsWin()
+        {
+            map = Map.CreateMap(level += 1);
+            Imoveble = FindImoveble();
+            KeysFound = 0;
+        }
 
         private static List<IPlaceable> FindImoveble()
         {
