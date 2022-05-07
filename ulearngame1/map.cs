@@ -9,7 +9,38 @@ namespace ulearngame1
 {
     class Map
     {
-        private const string levelExample = @"
+        private const string WithoutDanger = @"
+WWWWWWWW
+WEEEWKKW
+DPEEEEEW
+WEEEWKKW
+WWWWWWWW";
+
+        private const string Run = @"
+WWWWWWWWWWWWW
+WMEEPKKKKEEED
+WWWWWWWWWWWWW";
+
+        private const string FirstLevel = @"
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+/EEEEEEEEEEEEEEEWWKEWEEEEEEEEEE|
+/EWEWWWWWWWWEWEEEWWEWEWWWWEWEWW|
+/EEEWEEEWEEEEWEMEWEEWEWKEWEWEEE|
+/EWEWEWEEEWKEWWEWWEEWEEEEEEWEWE|
+/EWEWEWWWWWWWWWEWWEWWWWWWWWWEWE|
+/EWEWEEEEEEEEEEEEEEEEEEEEEEEEWE|
+/EWEWEEWWWWWWWWWWWWWWWWWWWWWEWE|
+/EWEEEEWEEEEEEEEEEEEEEEEWKEWEWE|
+/EWWWWWWEWWWWWWWWWWWWWWEWEEWEWE|
+/EEEEEEEEWDEEEEEEEEEEEWEWEEEEWE|
+/WWWWWWWEWWWWWWEWWWWEEWEWWWWEWE|
+/EEEEEEEEEEEEEEEEEEWKEWEEEEEEEE|
+/EWWWWWWEWWWWWWEWWEWWWWEWWWWWWW|
+/EWWEEEEEEEEEEWEWEEEWEEEWEEEWEE|
+/EEWEWWWEWWWWEWPWEWEEEWEEEWEEEE|
+/KEWEWEEEEEEWEWEWEEEWEEEWEEEWEK|
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
+        private const string SecondLevel = @"
 WWWWWWWWWWWWWWWDWWWWWWWWWWWWWWWW
 /EEEEEEEEEEEEEEPEEEEEEEEEEEEEEE|
 /EWWWWWWWWWWWWWEWWWWWWWWWWWWWWE|
@@ -37,7 +68,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE|
 /EEEEEEEEEEEEEPEEEEEEEEEEEEEEEE|
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE|
-/EEEEEEEEEEEEEEEMEEEEEEEEEEEEEE|
+/EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE|
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE|
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE|
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE|
@@ -114,9 +145,11 @@ WEEKEPEEEDWW
 WKEEEEEKEWWW
 WWWWWWWWWWWW";
 
-        private static List<string> listMap = new List<string> { KeyAndDoorsTest, levelExample };
+        private static List<string> listMap = new List<string> { WithoutDanger, Run, FirstLevel, SecondLevel };
+        public static int keysCount = 0;
         public static IPlaceable[,] CreateMap(int level)
         {
+            keysCount = 0;
             return CreateMap(listMap[level]);
         }
 
@@ -150,7 +183,10 @@ WWWWWWWWWWWW";
                 case '|':
                     return new Wall(Resource1.WallRight, x, y);
                 case 'K':
-                    return new Key(Resource1.Key, x, y);
+                    {
+                        keysCount++;
+                        return new Key(Resource1.Key, x, y);
+                    }
                 case 'D':
                     return new ClosedDoor(Resource1.ClosedDoor, x, y);
                 default:

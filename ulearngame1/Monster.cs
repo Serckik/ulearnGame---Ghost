@@ -29,7 +29,7 @@ namespace ulearngame1
         public bool IsVisible { get; set; }
         public Point LastSeePlayer = new Point(-1, -1);
         public bool SeePlayer;
-        public Directions direction;
+        public Directions direction = Directions.None;
 
         public bool left, right, top, bottom;
         public Monster(int x, int y)
@@ -38,7 +38,7 @@ namespace ulearngame1
             X = (x * GameModel.ElementSize) - 30;
             Y = (y * GameModel.ElementSize) - 30;
             Position = new Point(x, y);
-            Vision = 3;
+            Vision = 6;
             MoveSpeed = 5;
             PositionChanged = true;
             IsVisible = false;
@@ -61,6 +61,12 @@ namespace ulearngame1
 
             top = !(GameModel.map[Position.X, Position.Y - 1] is Wall);
 
+            var freeSpace = 0;
+            freeSpace = !right ? freeSpace : freeSpace + 1;
+            freeSpace = !left ? freeSpace : freeSpace + 1;
+            freeSpace = !bottom ? freeSpace : freeSpace + 1;
+            freeSpace = !top ? freeSpace : freeSpace + 1;
+
             if (VisionObjects.Where(x => x.X / 60 == GameModel.player.Position.X && x.Y / 60 == GameModel.player.Position.Y).Count() != 0)
             {
                 LastSeePlayer = new Point(GameModel.player.Position.X, GameModel.player.Position.Y);
@@ -81,19 +87,19 @@ namespace ulearngame1
             }
             else
             {
-                if(direction != Directions.None && (left || right) && (top || bottom) && PositionChanged)
+                if (freeSpace == 1 || direction == Directions.None || ((left || right) && (top || bottom) && PositionChanged))
                 {
                     PositionChanged = false;
                     while (true)
                     {
                         number = random.Next(1, 5);
-                        if (number == 1 && left && direction != Directions.right)
+                        if ((number == 1 && left && direction != Directions.right) || freeSpace == 1)
                             break;
-                        if (number == 2 && right && direction != Directions.left)
+                        if ((number == 2 && right && direction != Directions.left) || freeSpace == 1)
                             break;
-                        if (number == 3 && top && direction != Directions.bottom)
+                        if ((number == 3 && top && direction != Directions.bottom) || freeSpace == 1)
                             break;
-                        if (number == 4 && bottom && direction != Directions.top)
+                        if ((number == 4 && bottom && direction != Directions.top) || freeSpace == 1)
                             break;
                     }
                 }
@@ -119,6 +125,9 @@ namespace ulearngame1
                     direction = (Directions)3;
                 }
             }
+
+            if (Position.X == GameModel.player.Position.X && Position.Y == GameModel.player.Position.Y)
+                GameModel.GameIsOver();
         }
     }
 }

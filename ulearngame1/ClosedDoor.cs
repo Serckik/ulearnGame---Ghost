@@ -24,7 +24,7 @@ namespace ulearngame1
 
         public void PlayAnimation(Graphics g, bool keyPressed)
         {
-            if (GameModel.KeysFound == 4)
+            if (GameModel.KeysFound == Map.keysCount)
                 GameModel.map[X / 60, Y / 60] = new OpenDoor(Resource1.OpenedDoor, X / 60, Y / 60);
             g.DrawImage(image, new Point(X, Y));
         }

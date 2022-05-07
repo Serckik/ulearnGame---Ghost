@@ -44,7 +44,7 @@ namespace ulearngame1
             X = (x * GameModel.ElementSize) - 30;
             Y = (y * GameModel.ElementSize) - 30;
             Position = new Point(x, y);
-            Vision = 5;
+            Vision = 4;
             MoveSpeed = 6;
         }
 

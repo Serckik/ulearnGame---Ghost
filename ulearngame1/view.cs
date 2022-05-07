@@ -30,9 +30,6 @@ namespace ulearngame1
                         if(monster.IsVisible)
                             monster.PlayAnimation(g, keyPressed);
                         monster.MonsterMove();
-
-                        if(monster.Position.X == GameModel.player.Position.X && monster.Position.Y == GameModel.player.Position.Y)
-                            GameModel.GameIsOver();
                     }
                 }
         }
