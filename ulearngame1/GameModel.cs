@@ -68,7 +68,7 @@ namespace ulearngame1
                 DoSectorVisibility(creature.Position.Y - vision, shadows, animations, creature);
                 FindSingleObject(shadows, animations, creature);
 
-                if (item is IPlaceable)
+                if (item is Player)
                     VisionObjects = VisionObjects.Concat(animations).ToList();
 
                 creature.VisionObjects = animations;
