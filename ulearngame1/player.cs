@@ -21,6 +21,7 @@ namespace ulearngame1
         public int widht = walkImage.Width / 8;
         public bool left, right, top, bottom;
         public int state = 0;
+        public int Power = 1;
 
         public Bitmap image { get; set; }
         public string name { get; set; }
@@ -46,6 +47,23 @@ namespace ulearngame1
             Position = new Point(x, y);
             Vision = 4;
             MoveSpeed = 6;
+        }
+
+        public void CanStanMonster()
+        {
+            if (Power == 0) return;
+
+            var monsters = GameModel.VisionObjects.Where(x => x is Monster).ToList();
+            foreach(var item in monsters)
+            {
+                var monster = (Monster)item;
+                if (Math.Abs(GameModel.player.Position.X - monster.Position.X) <= 1
+                    && Math.Abs(GameModel.player.Position.Y - monster.Position.Y) <= 1)
+                {
+                    monster.IsStanned = true;
+                    Power--;
+                }
+            }
         }
 
         public void PlayerMove()

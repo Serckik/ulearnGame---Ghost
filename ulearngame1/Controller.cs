@@ -12,10 +12,11 @@ namespace ulearngame1
     {
         public static void PlayerKey(Keys pressed, bool IsActive)
         {
-            if (pressed == Keys.A) { GameModel.player.left = IsActive; };
-            if (pressed == Keys.D) { GameModel.player.right = IsActive; };
-            if (pressed == Keys.W) { GameModel.player.top = IsActive; };
-            if (pressed == Keys.S) { GameModel.player.bottom = IsActive; };
+            if (pressed == Keys.A || pressed == Keys.Left) { GameModel.player.left = IsActive; };
+            if (pressed == Keys.D || pressed == Keys.Right) { GameModel.player.right = IsActive; };
+            if (pressed == Keys.W || pressed == Keys.Up) { GameModel.player.top = IsActive; };
+            if (pressed == Keys.S || pressed == Keys.Down) { GameModel.player.bottom = IsActive; };
+            if (pressed == Keys.Q) { GameModel.player.CanStanMonster(); };
         }
     }
 }

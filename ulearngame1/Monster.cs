@@ -30,6 +30,7 @@ namespace ulearngame1
         public Point LastSeePlayer = new Point(-1, -1);
         public bool SeePlayer;
         public Directions direction = Directions.None;
+        public bool IsStanned;
 
         public bool left, right, top, bottom;
         public Monster(int x, int y)
@@ -51,15 +52,25 @@ namespace ulearngame1
 
         private int number;
         private readonly Random random = new Random();
+        private int StayTime;
         public void MonsterMove()
         {
-            right = !(GameModel.map[Position.X + 1, Position.Y] is Wall);
+            if (IsStanned && StayTime != 100) 
+            {
+                StayTime++;
+                return;
+            }
 
-            left = !(GameModel.map[Position.X - 1, Position.Y] is Wall);
+            IsStanned = false;
+            StayTime = 0;
 
-            bottom = !(GameModel.map[Position.X, Position.Y + 1] is Wall);
+            right = !(GameModel.map[Position.X + 1, Position.Y] is Wall) && !(GameModel.map[Position.X + 1, Position.Y] is ClosedDoor);
 
-            top = !(GameModel.map[Position.X, Position.Y - 1] is Wall);
+            left = !(GameModel.map[Position.X - 1, Position.Y] is Wall) && !(GameModel.map[Position.X - 1, Position.Y] is ClosedDoor);
+
+            bottom = !(GameModel.map[Position.X, Position.Y + 1] is Wall) && !(GameModel.map[Position.X, Position.Y + 1] is ClosedDoor);
+
+            top = !(GameModel.map[Position.X, Position.Y - 1] is Wall) && !(GameModel.map[Position.X, Position.Y - 1] is ClosedDoor);
 
             var freeSpace = 0;
             freeSpace = !right ? freeSpace : freeSpace + 1;
@@ -93,13 +104,13 @@ namespace ulearngame1
                     while (true)
                     {
                         number = random.Next(1, 5);
-                        if ((number == 1 && left && direction != Directions.right) || freeSpace == 1)
+                        if ((number == 1 && left && direction != Directions.right) || (freeSpace == 1 && direction == Directions.left && right && number == 2))
                             break;
-                        if ((number == 2 && right && direction != Directions.left) || freeSpace == 1)
+                        if ((number == 2 && right && direction != Directions.left) || (freeSpace == 1 && direction == Directions.right && left && number == 1))
                             break;
-                        if ((number == 3 && top && direction != Directions.bottom) || freeSpace == 1)
+                        if ((number == 3 && top && direction != Directions.bottom) || (freeSpace == 1 && direction == Directions.top && bottom && number == 4))
                             break;
-                        if ((number == 4 && bottom && direction != Directions.top) || freeSpace == 1)
+                        if ((number == 4 && bottom && direction != Directions.top) || (freeSpace == 1 && direction == Directions.bottom && top && number == 3))
                             break;
                     }
                 }
