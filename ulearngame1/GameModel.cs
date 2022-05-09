@@ -45,7 +45,7 @@ namespace ulearngame1
                     map[player.Position.X, player.Position.Y] = new Floor(player.Position.X, player.Position.Y);
                     animations.AddFirst(item);
                 }
-                else if (item is Player)
+                else if (item is IMoveble)
                 {
                     var creature = (IMoveble)item;
                     map[creature.Position.X, creature.Position.Y] = new Floor(creature.Position.X, creature.Position.Y);
