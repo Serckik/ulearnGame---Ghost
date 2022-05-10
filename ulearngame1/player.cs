@@ -26,7 +26,7 @@ namespace ulearngame1
         public int height = 60;
         public int widht;
         public bool left, right, top, bottom, atack;
-        public Directions direction = 0;
+        public Directions direction = Directions.right;
         public int Power = 1;
 
         public Bitmap image { get; set; }
@@ -91,12 +91,13 @@ namespace ulearngame1
         }
 
         private Directions action;
-        private Directions preDir;
+        private Directions preDir = Directions.None;
         public void PlayAnimation(Graphics g, bool keyPressed)
         {
-            image = ChooseAnimation(keyPressed) == null ? Resource1.Idle : ChooseAnimation(keyPressed);
+            var a = ChooseAnimation(keyPressed);
+            image = a == null ? Resource1.Idle : a;
             var newDelta = image.Width / image.Height;
-            if (preDir != action)
+            if (preDir != action || delta == 0)
             {
                 delta = newDelta;
                 currentFrame = direction == Directions.right ? 0 : delta - 1;
@@ -129,29 +130,17 @@ namespace ulearngame1
                 return Resource1.AtackRe;
             }
 
-            if (direction == Directions.None || (!keyPressed && direction == Directions.right)) 
-            {
-                action = Directions.None;
-                return Resource1.Idle;
-            }
-
-            if (!keyPressed && direction == Directions.left) 
-            {
-                action = Directions.None;
-                return Resource1.IdleRe;
-            }
-
-            if ((bottom || top) && direction == Directions.right) 
+            if ((bottom || top) && direction == Directions.right)
             {
                 action = Directions.right;
                 return Resource1.Walk;
             }
 
-            if ((bottom || top) && direction == Directions.left) 
+            if ((bottom || top) && direction == Directions.left)
             {
                 action = Directions.left;
                 return Resource1.WalkRe;
-            } 
+            }
 
             if (right)
             {
@@ -164,6 +153,18 @@ namespace ulearngame1
                 direction = Directions.left;
                 action = Directions.left;
                 return Resource1.WalkRe;
+            }
+
+            if (!keyPressed && direction == Directions.right) 
+            {
+                action = Directions.None;
+                return Resource1.Idle;
+            }
+
+            if (!keyPressed && direction == Directions.left) 
+            {
+                action = Directions.None;
+                return Resource1.IdleRe;
             }
             return image;
         }

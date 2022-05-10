@@ -27,9 +27,9 @@ namespace ulearngame1
                     else if(item is Monster)
                     {
                         var monster = (Monster)item;
-                        if(monster.IsVisible)
-                            monster.PlayAnimation(g, keyPressed);
                         monster.MonsterMove();
+                        if (monster.IsVisible)
+                            monster.PlayAnimation(g, keyPressed);
                     }
                 }
         }

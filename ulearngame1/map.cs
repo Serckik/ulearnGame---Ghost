@@ -122,10 +122,10 @@ WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
 
         private const string TestShadow = @"
 WWWWWWWWWW
-WEPEEEEEMW
-WWWWWWWWWW
-EEEEEEEEEE
-EEEEEEEEEE";
+WMEEEEEEPW
+WWEWWWWEWW
+EWEEEEEEEW
+EWWWWWWWWW";
 
         private const string OneBlock = @"
 EEEEEEEEEEW
@@ -150,7 +150,7 @@ WWWWWWWWWWWW";
         public static IPlaceable[,] CreateMap(int level)
         {
             keysCount = 0;
-            return CreateMap(TestShadow);
+            return CreateMap(listMap[level]);
         }
 
         private static IPlaceable[,] CreateMap(string map)

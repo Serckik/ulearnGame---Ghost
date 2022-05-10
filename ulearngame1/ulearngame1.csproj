@@ -184,5 +184,41 @@
   <ItemGroup>
     <None Include="Resources\AtackRe.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NightBorne.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Skeleton enemy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\aaa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Flight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IdleCaveExplorer-Sheet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WalkingCaveExplorer-Sheet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\m_IdleCaveExplorer-Sheet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\m_WalkingCaveExplorer-Sheet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\merge_from_ofoct %281%29 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\m_merge_from_ofoct %281%29 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\merge_from_ofoct %282%29 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\m_merge_from_ofoct %282%29 %281%29.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
