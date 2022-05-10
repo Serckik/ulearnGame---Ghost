@@ -110,9 +110,6 @@
     <None Include="Resources\Walk.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\HostileRunningReaper-Sheet.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\HostileIdleReaper-Sheet.png" />
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +174,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\closedDoor.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HostileAttackReaper-Sheet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HostileRunningReaper-Sheet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AtackRe.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

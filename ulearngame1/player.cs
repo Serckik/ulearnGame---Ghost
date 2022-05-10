@@ -8,19 +8,25 @@ using System.Windows.Forms;
 
 namespace ulearngame1
 {
+    enum Directions
+    {
+        left,
+        right,
+        top,
+        bottom,
+        None,
+        Atack
+    }
+
     class Player : IMoveble
     {
         public int X { get; set; }
         public int Y { get; set; }
         public int currentFrame;
-        public static Bitmap walkImage = Resource1.Walk;
-        public static Bitmap stayImage = Resource1.Idle;
-        public static Bitmap stayImageRe = Resource1.IdleRe;
-        public static Bitmap walkImageRe = Resource1.WalkRe;
-        public int height = walkImage.Height;
-        public int widht = walkImage.Width / 8;
-        public bool left, right, top, bottom;
-        public int state = 0;
+        public int height = 60;
+        public int widht;
+        public bool left, right, top, bottom, atack;
+        public Directions direction = 0;
         public int Power = 1;
 
         public Bitmap image { get; set; }
@@ -33,6 +39,7 @@ namespace ulearngame1
         public int Vision { get; set; }
         public bool IsVisible { get; set; }
         public List<IPlaceable> VisionObjects { get; set; }
+        private int delta;
 
         public Player() 
         {
@@ -62,6 +69,7 @@ namespace ulearngame1
                 {
                     monster.IsStanned = true;
                     Power--;
+                    atack = true;
                 }
             }
         }
@@ -82,31 +90,79 @@ namespace ulearngame1
                 GameModel.GameIsWin();
         }
 
+        private Directions action;
+        private Directions preDir;
         public void PlayAnimation(Graphics g, bool keyPressed)
         {
-            image = ChooseAnimation(keyPressed);
-            if (image == null) image = Resource1.Idle;
+            image = ChooseAnimation(keyPressed) == null ? Resource1.Idle : ChooseAnimation(keyPressed);
+            var newDelta = image.Width / image.Height;
+            if (preDir != action)
+            {
+                delta = newDelta;
+                currentFrame = direction == Directions.right ? 0 : delta - 1;
+                widht = image.Width / delta;
+            }
+            preDir = action;
             g.DrawImage(image, new Rectangle(X, Y, widht, height), currentFrame * widht, 0, widht, height, GraphicsUnit.Pixel);
-            if (currentFrame + 1 < 5)
+            if (currentFrame + 1 < delta && direction == Directions.right)
                 currentFrame++;
+            else if (direction == Directions.left && currentFrame - 1 > 0)
+                currentFrame--;
             else
-                currentFrame = 0;
+            {
+                currentFrame = direction == Directions.right ? 0 : delta - 1;
+                atack = false;
+            }
         }
 
         public Bitmap ChooseAnimation(bool keyPressed)
         {
-            if (!keyPressed && state == 1) return Resource1.Idle;
-            else if (!keyPressed && state == 0) return Resource1.IdleRe;
-            if ((bottom || top) && state == 1) return Resource1.Walk;
-            if ((bottom || top) && state == 0) return Resource1.WalkRe;
+            if (atack && direction == Directions.right) 
+            {
+                action = Directions.Atack;
+                return Resource1.Atack;
+            }
+
+            if (atack && direction == Directions.left) 
+            {
+                action = Directions.Atack;
+                return Resource1.AtackRe;
+            }
+
+            if (direction == Directions.None || (!keyPressed && direction == Directions.right)) 
+            {
+                action = Directions.None;
+                return Resource1.Idle;
+            }
+
+            if (!keyPressed && direction == Directions.left) 
+            {
+                action = Directions.None;
+                return Resource1.IdleRe;
+            }
+
+            if ((bottom || top) && direction == Directions.right) 
+            {
+                action = Directions.right;
+                return Resource1.Walk;
+            }
+
+            if ((bottom || top) && direction == Directions.left) 
+            {
+                action = Directions.left;
+                return Resource1.WalkRe;
+            } 
+
             if (right)
             {
-                state = 1;
+                direction = Directions.right;
+                action = Directions.right;
                 return Resource1.Walk;
             }
             else if (left)
             {
-                state = 0;
+                direction = Directions.left;
+                action = Directions.left;
                 return Resource1.WalkRe;
             }
             return image;

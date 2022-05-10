@@ -5,14 +5,6 @@ using System.Linq;
 
 namespace ulearngame1
 {
-    enum Directions
-    {
-        left,
-        right,
-        top,
-        bottom,
-        None
-    }
     class Monster : IMoveble
     {
         public int X { get; set; }

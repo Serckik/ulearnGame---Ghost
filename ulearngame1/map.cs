@@ -122,7 +122,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
 
         private const string TestShadow = @"
 WWWWWWWWWW
-EPEEEEEEMW
+WEPEEEEEMW
 WWWWWWWWWW
 EEEEEEEEEE
 EEEEEEEEEE";
@@ -150,7 +150,7 @@ WWWWWWWWWWWW";
         public static IPlaceable[,] CreateMap(int level)
         {
             keysCount = 0;
-            return CreateMap(FirstLevel);
+            return CreateMap(TestShadow);
         }
 
         private static IPlaceable[,] CreateMap(string map)
