@@ -21,13 +21,18 @@ WWWWWWWWWWWWW
 WMEEPKKKKEEED
 WWWWWWWWWWWWW";
 
+        private const string Defence = @"
+WWWWWWWWWWWWW
+WPEEEEKKKEEMD
+WWWWWWWWWWWWW";
+
         private const string FirstLevel = @"
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 /EEEEEEEEEEEEEEEWWKEWEEEEEEEEEE|
 /EWEWWWWWWWWEWEEEWWEWEWWWWEWEWW|
 /EEEWEEEWEEEEWEEEWEEWEWKEWEWEEE|
-/EWEWEWEEEWKEWWEWWEEWEEEEEEWEWE|
-/EWEWEWWWWWWWWWMWWEWWWWWWWWWEWE|
+/EWEWEWEEEWKEWEEWWEEWEEEEEEWEWE|
+/EWEWEWWWWWWWWWEWWEWWWWWWWWWEWE|
 /EWEWEEEEEEEEEEEEEEEEEEEEEEEEWE|
 /EWEWEEWWWWWWWWWWWWWWWWWWWWWEWE|
 /EWEEEEWEEEEEEEEEEEEEEEEWKEWEWE|
@@ -40,6 +45,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 /EEWEWWWEWWWWEWPWEWEEEWEEEWEEEE|
 /KEWEWEEEEEEWEWEWEEEWEEEWEEEWEK|
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
+
         private const string SecondLevel = @"
 WWWWWWWWWWWWWWWDWWWWWWWWWWWWWWWW
 /EEEEEEEEEEEEEEPEEEEEEEEEEEEEEE|
@@ -55,7 +61,7 @@ WWWWWWWWWWWWWWWDWWWWWWWWWWWWWWWW
 /EWEEWEEEEEWEEEEEEEWEEEEEEWEEWE|
 /EWWWWEEEEEWWWWEWWWWEEEEEEWWWWE|
 /EWEEEEEEEEEEEEEEEEEEEEEEEEEEWE|
-/EWKEEEEEEEWEEEEEEEWEEEEEEEMKWE|
+/EWKEEEEEEEWEEEEEEEWEEEEEEEEKWE|
 /EWWWWWWWWWWWWWEWWWWWWWWWWWWWWE|
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE|
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
@@ -145,23 +151,34 @@ WEEKEPEEEDWW
 WKEEEEEKEWWW
 WWWWWWWWWWWW";
 
-        private static List<string> listMap = new List<string> { WithoutDanger, Run, FirstLevel, SecondLevel };
         public static int keysCount = 0;
+
+        private static List<Level> listMap = new List<Level>
+        {
+            new Level(WithoutDanger, true, 0),
+            new Level(Run, true, 1),
+            new Level(Defence, true, 1),
+            new Level(FirstLevel, false, 2),
+            new Level(SecondLevel, false, 1)
+        };
+
         public static IPlaceable[,] CreateMap(int level)
         {
             keysCount = 0;
-            return CreateMap(listMap[level]);
+            return CreateMap(new Level(FirstLevel, false, 2));
         }
 
-        private static IPlaceable[,] CreateMap(string map)
+        private static IPlaceable[,] CreateMap(Level levelInfo)
         {
+            var map = levelInfo.Map;
             string separator = map[0] == '\r' ? "\r\n" : "\n";
             var rows = map.Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries);
             var result = new IPlaceable[rows[0].Length, rows.Length];
             for (var x = 0; x < rows[0].Length; x++)
                 for (var y = 0; y < rows.Length; y++)
                     result[x, y] = CreateCreatureBySymbol(rows[y][x], x, y);
-            return result;
+            if (levelInfo.isTutorial) return result;
+            return levelInfo.GetMapWithMonsterPosition(result);
         }
         private static IPlaceable CreateCreatureBySymbol(char c, int x, int y)
         {

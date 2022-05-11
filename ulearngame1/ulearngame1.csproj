@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Level.cs" />
     <Compile Include="ClosedDoor.cs" />
     <Compile Include="Interface1.cs" />
     <Compile Include="Key.cs" />
