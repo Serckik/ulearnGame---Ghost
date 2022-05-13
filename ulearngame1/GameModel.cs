@@ -68,7 +68,7 @@ namespace ulearngame1
                 DoSectorVisibility(creature.Position.Y - vision, shadows, animations, creature);
                 FindSingleObject(shadows, animations, creature);
 
-                if (item is IMoveble)
+                if (item is Player)
                     VisionObjects = VisionObjects.Concat(animations).ToList();
 
                 creature.VisionObjects = animations;
@@ -76,6 +76,21 @@ namespace ulearngame1
                 creature.IsVisible = item is Monster &&
                     VisionObjects.Where(x => x.X / 60 == creature.Position.X && x.Y / 60 == creature.Position.Y).Count() != 0;
 
+                if (item is Monster && player.VisionActivate && player.VisionTime != 100 && player.MonstersAreVisible != 0)
+                {
+                    creature.IsVisible = true;
+                    animations = new List<IPlaceable>();
+                    shadows = FindShadows(creature.Position.Y - 2, new HashSet<Point>(), creature);
+                    DoSectorVisibility(creature.Position.Y - 2, shadows, animations, creature);
+                    VisionObjects = VisionObjects.Concat(animations).ToList();
+                    player.VisionTime++;
+                }
+                else if (player.VisionTime == 100)
+                {
+                    player.MonstersAreVisible--;
+                    player.VisionTime = 0;
+                    player.VisionActivate = false;
+                }
             }
             VisionObjects = VisionObjects.Concat(Imoveble).ToList();
         }

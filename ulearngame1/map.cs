@@ -26,7 +26,7 @@ WWWWWWWWWWWWW
 WPEEEEKKKEEMD
 WWWWWWWWWWWWW";
 
-        private const string FirstLevel = @"
+        private const string level01 = @"
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 /EEEEEEEEEEEEEEEWWKEWEEEEEEEEEE|
 /EWEWWWWWWWWEWEEEWWEWEWWWWEWEWW|
@@ -46,7 +46,27 @@ WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 /KEWEWEEEEEEWEWEWEEEWEEEWEEEWEK|
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
 
-        private const string SecondLevel = @"
+        private const string level02 = @"
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+/EEEEEEEWEEWEEEEWEEEEWEKEWEEEEW|
+/EEEWWEEEEEEEWWEEEWEEEEEEEEWKEE|
+/EEWWWWEEWWWWWWKWWWWWWWEWWWWWWE|
+/EWWWWWWKWKEEWWEWEEEEEEEEEWWWWE|
+/EEWEWWWWWWEEEEEEEWWWEWWWEEEEEE|
+/EEEEEEEEEEEEEEWWWWKEEEKWWWWEEW|
+/EEWEWWWWWWEEEEEEWWWWEWWWWEEEEW|
+/EEEEEEEEEEEEWWWEEEEEEEEEEEWWWW|
+/EWWWWEWWWWWEWEWWWWWWEWWWWWWWKE|
+/EWWWWEWWWWEEEEEEWWEEEWWWEEEWWE|
+/EEEEWEWWWWWWWWWWWEEEEEEEEEEEWE|
+/WWEEWEEEEEEEEEWEEEWEEEKEEEWEEE|
+/WWEEWEWEEWWEWEEEWEEEEEEEEEEEWW|
+/EEEEEEWEEEEEWWWWWWEEEWWWEEEWWW|
+/EWEEWEWEWWWWWKEEWWWWWWWWWWEWWW|
+/KWEEWEEEEEEEEEEPDWWWWWWWWWEEEK|
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
+
+        private const string TestLevel = @"
 WWWWWWWWWWWWWWWDWWWWWWWWWWWWWWWW
 /EEEEEEEEEEEEEEPEEEEEEEEEEEEEEE|
 /EWWWWWWWWWWWWWEWWWWWWWWWWWWWWE|
@@ -158,14 +178,16 @@ WWWWWWWWWWWW";
             new Level(WithoutDanger, true, 0),
             new Level(Run, true, 1),
             new Level(Defence, true, 1),
-            new Level(FirstLevel, false, 2),
-            new Level(SecondLevel, false, 1)
+            new Level(level01, false, 2),
+            new Level(level02, false, 2)
         };
+
+        public static string[] StringNameLevels = new string[] { "Просто уровень", "Беги", "Защищайся", "Уровень 1", "Уровень 2" };
 
         public static IPlaceable[,] CreateMap(int level)
         {
             keysCount = 0;
-            return CreateMap(new Level(FirstLevel, false, 2));
+            return CreateMap(listMap[level]);
         }
 
         private static IPlaceable[,] CreateMap(Level levelInfo)

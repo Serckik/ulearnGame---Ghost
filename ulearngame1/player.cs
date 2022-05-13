@@ -27,7 +27,9 @@ namespace ulearngame1
         public int widht;
         public bool left, right, top, bottom, atack;
         public Directions direction = Directions.right;
-        public int Power = 1;
+        public int Power = 2;
+        public int MonstersAreVisible = 2;
+        public int VisionTime;
 
         public Bitmap image { get; set; }
         public string name { get; set; }
@@ -40,6 +42,7 @@ namespace ulearngame1
         public bool IsVisible { get; set; }
         public List<IPlaceable> VisionObjects { get; set; }
         private int delta;
+        public bool VisionActivate;
 
         public Player() 
         {

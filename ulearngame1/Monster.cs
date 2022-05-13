@@ -44,7 +44,6 @@ namespace ulearngame1
 
         private Directions action;
         private Directions preDir = Directions.None;
-        private int frame;
         public void PlayAnimation(Graphics g, bool keyPressed)
         {
             right = !(GameModel.map[Position.X + 1, Position.Y] is Wall) && !(GameModel.map[Position.X + 1, Position.Y] is ClosedDoor);
@@ -95,40 +94,34 @@ namespace ulearngame1
             if (IsStanned && preDir == Directions.right)
             {
                 action = Directions.right;
-                frame = 90;
                 return Resource1.MIdle;
             }
 
             if (IsStanned && preDir == Directions.left)
             {
                 action = Directions.left;
-                frame = 90;
                 return Resource1.MIdleRe;
             }
 
             if ((direction == Directions.bottom || direction == Directions.top) && preDir == Directions.right)
             {
                 action = Directions.right;
-                frame = 90;
                 return Resource1.MWalk;
             }
 
             if ((direction == Directions.bottom || direction == Directions.top) && preDir == Directions.left)
             {
                 action = Directions.left;
-                frame = 90;
                 return Resource1.MWalkRe;
             }
 
             if (direction == Directions.right)
             {
-                frame = 90;
                 action = Directions.right;
                 return Resource1.MWalk;
             }
             else if (direction == Directions.left)
             {
-                frame = 90;
                 action = Directions.left;
                 return Resource1.MWalkRe;
             }

@@ -32,6 +32,10 @@ namespace ulearngame1
                             monster.PlayAnimation(g, keyPressed);
                     }
                 }
+            g.DrawString("Осталось ключей: " + (Map.keysCount - GameModel.KeysFound).ToString(), new Font("Impact", 16), new SolidBrush(Color.Gold), 0, 0);
+            g.DrawString("Оглушение: " + (GameModel.player.Power).ToString(), new Font("Impact", 16), new SolidBrush(Color.Gold), 300, 0);
+            g.DrawString("Сканирование: " + (GameModel.player.MonstersAreVisible).ToString(), new Font("Impact", 16), new SolidBrush(Color.Gold), 600, 0);
+            g.DrawString("| " + Map.StringNameLevels[GameModel.level] + " |", new Font("Impact", 16), new SolidBrush(Color.Gold), 900, 0);
         }
     }
 }
