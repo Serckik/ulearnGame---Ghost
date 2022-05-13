@@ -68,7 +68,7 @@ namespace ulearngame1
             {
                 var monster = (Monster)item;
                 if (Math.Abs(GameModel.player.Position.X - monster.Position.X) <= 1
-                    && Math.Abs(GameModel.player.Position.Y - monster.Position.Y) <= 1)
+                    && Math.Abs(GameModel.player.Position.Y - monster.Position.Y) <= 1 && !monster.IsStanned)
                 {
                     monster.IsStanned = true;
                     Power--;
