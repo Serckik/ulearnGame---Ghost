@@ -17,7 +17,7 @@ namespace ulearngame1
             if (pressed == Keys.W || pressed == Keys.Up) { GameModel.player.top = IsActive; };
             if (pressed == Keys.S || pressed == Keys.Down) { GameModel.player.bottom = IsActive; };
             if (pressed == Keys.Q) { GameModel.player.CanStanMonster(); };
-            if(pressed == Keys.E) { GameModel.player.VisionActivate = true; }
+            if(pressed == Keys.E) { GameModel.player.VisionActivate = true;};
         }
     }
 }

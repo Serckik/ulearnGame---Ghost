@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NAudio.Wave;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace ulearngame1
         public static Player player;
         public static int vision;
         public static int level = 0;
+        public static bool IsUpdated;
 
         public static void GameIsOver()
         {
@@ -57,6 +59,7 @@ namespace ulearngame1
 
         public static void GetVision()
         {
+            if (IsUpdated) return;
             VisionObjects.Clear();
             foreach (var item in Imoveble)
             {

@@ -31,6 +31,7 @@ namespace ulearngame1
                 GameModel.map[X / 60, Y / 60] = new Floor(X / 60, Y / 60);
                 GameModel.KeysFound += 1;
                 IsCollect = true;
+                GameModel.player.IsKeyCollect = true;
             }
             else
             {

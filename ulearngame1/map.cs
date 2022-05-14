@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using NAudio.Wave;
+using System.IO;
 
 namespace ulearngame1
 {
@@ -18,12 +20,12 @@ WWWWWWWW";
 
         private const string Run = @"
 WWWWWWWWWWWWW
-WMEEPKKKKEEED
+WMEEPEEEEEEED
 WWWWWWWWWWWWW";
 
         private const string Defence = @"
 WWWWWWWWWWWWW
-WPEEEEKKKEEMD
+WPEEEEEEEEEMD
 WWWWWWWWWWWWW";
 
         private const string level01 = @"
@@ -172,6 +174,7 @@ WKEEEEEKEWWW
 WWWWWWWWWWWW";
 
         public static int keysCount = 0;
+        public static WaveOutEvent waveOut;
 
         private static List<Level> listMap = new List<Level>
         {
@@ -187,7 +190,33 @@ WWWWWWWWWWWW";
         public static IPlaceable[,] CreateMap(int level)
         {
             keysCount = 0;
+            PlayMusic();
             return CreateMap(listMap[level]);
+        }
+
+        public static void PlayMusic()
+        {
+            if(waveOut == null)
+            {
+                var dir = Directory.GetParent(Directory.GetCurrentDirectory());
+                var path = Directory.GetParent(dir.ToString()).ToString();
+                WaveFileReader reader = new WaveFileReader(path + "/Resources/mainMusic.wav");
+                LoopStream loop = new LoopStream(reader);
+                waveOut = new WaveOutEvent();
+                waveOut.Init(loop);
+                waveOut.Play();
+            }
+            else
+            {
+                waveOut.Play();
+                View.runMusic.Stop();
+                View.RunMusicActivate = false;
+                View.HeartSound.Stop();
+                View.HeartBreak = false;
+                View.HeartBreakTime = false;
+                View.Bit = 0;
+                GameModel.IsUpdated = true;
+            }
         }
 
         private static IPlaceable[,] CreateMap(Level levelInfo)
@@ -209,7 +238,7 @@ WWWWWWWWWWWW";
                 case 'P':
                     {
                         GameModel.player = new Player(x, y);
-                        return new Player(x, y);
+                        return GameModel.player;
                     }
                 case 'M':
                     return new Monster(x, y);
@@ -230,6 +259,49 @@ WWWWWWWWWWWW";
                     return new ClosedDoor(Resource1.ClosedDoor, x, y);
                 default:
                     throw new Exception($"wrong character for ICreature {c}");
+            }
+        }
+
+        public class LoopStream : WaveStream
+        {
+            WaveStream sourceStream;
+            public LoopStream(WaveStream sourceStream)
+            {
+                this.sourceStream = sourceStream;
+                this.EnableLooping = true;
+            }
+            public bool EnableLooping { get; set; }
+            public override WaveFormat WaveFormat
+            {
+                get { return sourceStream.WaveFormat; }
+            }
+            public override long Length
+            {
+                get { return sourceStream.Length; }
+            }
+            public override long Position
+            {
+                get { return sourceStream.Position; }
+                set { sourceStream.Position = value; }
+            }
+            public override int Read(byte[] buffer, int offset, int count)
+            {
+                int totalBytesRead = 0;
+
+                while (totalBytesRead < count)
+                {
+                    int bytesRead = sourceStream.Read(buffer, offset + totalBytesRead, count - totalBytesRead);
+                    if (bytesRead == 0)
+                    {
+                        if (sourceStream.Position == 0 || !EnableLooping)
+                        {
+                            break;
+                        }
+                        sourceStream.Position = 0;
+                    }
+                    totalBytesRead += bytesRead;
+                }
+                return totalBytesRead;
             }
         }
     }

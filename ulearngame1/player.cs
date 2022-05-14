@@ -30,6 +30,8 @@ namespace ulearngame1
         public int Power = 2;
         public int MonstersAreVisible = 2;
         public int VisionTime;
+        public bool IsKeyCollect;
+        public bool DoorOpen = true;
 
         public Bitmap image { get; set; }
         public string name { get; set; }
@@ -71,7 +73,8 @@ namespace ulearngame1
                     && Math.Abs(GameModel.player.Position.Y - monster.Position.Y) <= 1 && !monster.IsStanned)
                 {
                     monster.IsStanned = true;
-                    Power--;
+                    if (!atack)
+                        Power--;
                     atack = true;
                 }
             }
