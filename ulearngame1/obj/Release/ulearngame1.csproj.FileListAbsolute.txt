@@ -1,0 +1,10 @@
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\bin\Release\ulearngame1.exe.config
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\bin\Release\ulearngame1.exe
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\bin\Release\ulearngame1.pdb
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\obj\Release\ulearngame1.csproj.AssemblyReference.cache
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\obj\Release\ulearngame1.Properties.Resources.resources
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\obj\Release\ulearngame1.Resource1.resources
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\obj\Release\ulearngame1.csproj.GenerateResource.cache
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\obj\Release\ulearngame1.csproj.CoreCompileInputs.cache
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\obj\Release\ulearngame1.exe
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\obj\Release\ulearngame1.pdb

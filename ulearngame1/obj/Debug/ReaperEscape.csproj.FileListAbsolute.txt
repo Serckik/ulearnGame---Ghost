@@ -1,0 +1,10 @@
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\bin\Debug\ulearngame1.exe.config
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\bin\Debug\ulearngame1.exe
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\bin\Debug\ulearngame1.pdb
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\obj\Debug\ReaperEscape.csproj.AssemblyReference.cache
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\obj\Debug\ulearngame1.Properties.Resources.resources
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\obj\Debug\ulearngame1.Resource1.resources
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\obj\Debug\ReaperEscape.csproj.GenerateResource.cache
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\obj\Debug\ReaperEscape.csproj.CoreCompileInputs.cache
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\obj\Debug\ulearngame1.exe
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\obj\Debug\ulearngame1.pdb
