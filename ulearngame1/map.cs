@@ -216,6 +216,7 @@ WWWWWWWWWWWW";
                 View.HeartBreakTime = false;
                 View.Bit = 0;
                 GameModel.IsUpdated = true;
+                View.MonsterSeeMusic = false;
             }
         }
 

@@ -19,7 +19,7 @@ namespace ulearngame1
         private static bool VisionMusicActive;
         private static bool VisionMusicDisactive = true;
         private static bool AtackMusicActive;
-        private static bool MonsterSeeMusic;
+        public static bool MonsterSeeMusic;
         public static bool HeartBreak;
         public static bool HeartBreakTime;
         public static bool RunMusicActivate;
