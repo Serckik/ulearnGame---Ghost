@@ -63,6 +63,46 @@ namespace ulearngame1 {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap angeupright {
+            get {
+                object obj = ResourceManager.GetObject("angeupright", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap angledownleft {
+            get {
+                object obj = ResourceManager.GetObject("angledownleft", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap angledownright {
+            get {
+                object obj = ResourceManager.GetObject("angledownright", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap angleupleft {
+            get {
+                object obj = ResourceManager.GetObject("angleupleft", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Atack {
             get {
                 object obj = ResourceManager.GetObject("Atack", resourceCulture);
@@ -193,9 +233,39 @@ namespace ulearngame1 {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap oneblockdown {
+            get {
+                object obj = ResourceManager.GetObject("oneblockdown", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap oneblockup {
+            get {
+                object obj = ResourceManager.GetObject("oneblockup", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap OpenedDoor {
             get {
                 object obj = ResourceManager.GetObject("OpenedDoor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap soloBlock {
+            get {
+                object obj = ResourceManager.GetObject("soloBlock", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

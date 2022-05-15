@@ -159,9 +159,6 @@
     <None Include="Resources\IdleRe.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Wall.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Wall1.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -172,9 +169,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\w.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Floor.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\wRe.jpg" />
@@ -250,6 +244,45 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AtackMusic.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Floor.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Floor1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WallLeft.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WallRight.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Wall.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\soloBlock.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\oneblockup.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\oneblockdown.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\angleupleft.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\angeupright.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\angeupright %281%29.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\angledownleft.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\angledownright.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -30,42 +30,42 @@ WWWWWWWWWWWWW";
 
         private const string level01 = @"
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-/EEEEEEEEEEEEEEEWWKEWEEEEEEEEEE|
-/EWEWWWWWWWWEWEEEWWEWEWWWWEWEWW|
-/EEEWEEEWEEEEWEEEWEEWEWKEWEWEEE|
-/EWEWEWEEEWKEWEEWWEEWEEEEEEWEWE|
-/EWEWEWWWWWWWWWEWWEWWWWWWWWWEWE|
-/EWEWEEEEEEEEEEEEEEEEEEEEEEEEWE|
-/EWEWEEWWWWWWWWWWWWWWWWWWWWWEWE|
-/EWEEEEWEEEEEEEEEEEEEEEEWKEWEWE|
-/EWWWWWWEWWWWWWWWWWWWWWEWEEWEWE|
-/EEEEEEEEWDEEEEEEEEEEEWEWEEEEWE|
-/WWWWWWWEWWWWWWEWWWWEEWEWWWWEWE|
-/EEEEEEEEEEEEEEEEEEWKEWEEEEEEEE|
-/EWWWWWWEWWWWWWEWWEWWWWEWWWWWWW|
-/EWWEEEEEEEEEEWEWEEEWEEEWEEEWEE|
-/EEWEWWWEWWWWEWPWEWEEEWEEEWEEEE|
-/KEWEWEEEEEEWEWEWEEEWEEEWEEEWEK|
+/EEEEEEEEEEEEEEE./KE/EEEEEEEEEE/
+/E.ERWWWWWWWEDEEE/.E/ERWWLEDEWW/
+/EEE/EEE.EEEE/EEE/EE/EUKEUE/EEE/
+/EDE/E.EEE.KE/EE./EE/EEEEEE/EDE/
+/E/E/EWWWWWWWWWEWlEWWWWWWWWlE/E/
+/E/E/EEEEEEEEEEEEEEEEEEEEEEEE/E/
+/E/EUEERWWWWWWWWWWWWWWWWWWWLE/E/
+/E/EEEE/EEEEEEEEEEEEEEEE/KE/E/E/
+/ErWWWWlERWWWWWWWWWWWWLE/EEUE/E/
+/EEEEEEEE/OEEEEEEEEEEE/E/EEEE/E/
+/WWWWWWWErWWWWWEWWWLEE/ErWWWEUE/
+/EEEEEEEEEEEEEEEEEE/KE/EEEEEEEE/
+/EWWWWWWEWWWWWLERWErWWlEWWWWWWW/
+/E./EEEEEEEEEE/E/EEE.EEE.EEE.EE/
+/EE/ERWWEWWWLE/P/EEEEE.EEE.EEEE/
+/KE/E/EEEEEE/E/E/EEE.EEE.EEE.EK/
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
 
         private const string level02 = @"
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-/EEEEEEEWEEWEEEEWEEEEWEKEWEEEEW|
-/EEEWWEEEEEEEWWEEEWEEEEEEEEWKEE|
-/EEWWWWEEWWWWWWKWWWWWWWEWWWWWWE|
-/EWWWWWWKWKEEWWEWEEEEEEEEEWWWWE|
-/EEWEWWWWWWEEEEEEEWWWEWWWEEEEEE|
-/EEEEEEEEEEEEEEWWWWKEEEKWWWWEEW|
-/EEWEWWWWWWEEEEEEWWWWEWWWWEEEEW|
-/EEEEEEEEEEEEWWWEEEEEEEEEEEWWWW|
-/EWWWWEWWWWWEWEWWWWWWEWWWWWWWKE|
-/EWWWWEWWWWEEEEEEWWEEEWWWEEEWWE|
-/EEEEWEWWWWWWWWWWWEEEEEEEEEEEWE|
-/WWEEWEEEEEEEEEWEEEWEEEKEEEWEEE|
-/WWEEWEWEEWWEWEEEWEEEEEEEEEEEWW|
-/EEEEEEWEEEEEWWWWWWEEEWWWEEEWWW|
-/EWEEWEWEWWWWWKEEWWWWWWWWWWEWWW|
-/KWEEWEEEEEEEEEEPDWWWWWWWWWEEEK|
+/EEEEEEE.EE.EEEE.EEEE.EKE.EEEE./
+/EEERLEEEEEEERLEEE.EEEEEEEE.KEE/
+/EERWWLEERWWWW/KRWWWWWWEWWWWWLE/
+/EWWWWWLK/KEErlEUEEEEEEEEErWWlE/
+/EEUErWWWWWEEEEEEERWWEWWLEEEEEE/
+/EEEEEEEEEEEEEEWWW/KEEEK/WWWEER/
+/EE.EWWWWWWEEEEEErWWWEWWWlEEEE//
+/EEEEEEEEEEEERWLEEEEEEEEEEERWWW/
+/ERWWLERWWWWEUErWWWWWERWWWWW/KE/
+/ErWW/E/WW/EEEEEE/.EEErWlEEE.LE/
+/EEEE/ErWWWWWWWWWlEEEEEEEEEEEUE/
+/WLEE/EEEEEEEEE.EEE.EEEKEEE.EEE/
+/WlEEUEDEE..EDEEE.EEEEEEEEEEERW/
+/EEEEEE/EEEEE/WWWWLEEERWLEEERWW/
+/EDEEDEUEWWWWlKEE/WWWWWWWWLErWW/
+/K/EE/EEEEEEEEEEPOWWWWWWWW/EEEK/
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
 
         private const string TestLevel = @"
@@ -181,8 +181,8 @@ WWWWWWWWWWWW";
             new Level(WithoutDanger, true, 0),
             new Level(Run, true, 1),
             new Level(Defence, true, 1),
-            new Level(level01, false, 2),
-            new Level(level02, false, 2)
+            new Level(level01, false, 0),
+            new Level(level02, false, 0)
         };
 
         public static string[] StringNameLevels = new string[] { "Просто уровень", "Беги", "Защищайся", "Уровень 1", "Уровень 2" };
@@ -191,7 +191,7 @@ WWWWWWWWWWWW";
         {
             keysCount = 0;
             PlayMusic();
-            return CreateMap(listMap[level]);
+            return CreateMap(listMap[4]);
         }
 
         public static void PlayMusic()
@@ -251,12 +251,26 @@ WWWWWWWWWWWW";
                     return new Wall(Resource1.WallLeft, x, y);
                 case '|':
                     return new Wall(Resource1.WallRight, x, y);
+                case '.':
+                    return new Wall(Resource1.soloBlock, x, y);
+                case 'U':
+                    return new Wall(Resource1.oneblockup, x, y);
+                case 'D':
+                    return new Wall(Resource1.oneblockdown, x, y);
+                case 'L':
+                    return new Wall(Resource1.angleupleft, x, y);
+                case 'R':
+                    return new Wall(Resource1.angeupright, x, y);
+                case 'l':
+                    return new Wall(Resource1.angledownleft, x, y);
+                case 'r':
+                    return new Wall(Resource1.angledownright, x, y);
                 case 'K':
                     {
                         keysCount++;
                         return new Key(Resource1.Key, x, y);
                     }
-                case 'D':
+                case 'O':
                     return new ClosedDoor(Resource1.ClosedDoor, x, y);
                 default:
                     throw new Exception($"wrong character for ICreature {c}");

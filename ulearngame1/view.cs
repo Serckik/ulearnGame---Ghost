@@ -130,16 +130,16 @@ namespace ulearngame1
                         if (anyMonsterSee && !MonsterSeeMusic && !GameModel.player.VisionActivate)
                         {
                             MonsterSeeMusic = true;
-                            HeartBreak = false;
+                            Bit = 0;
+                            HeartSound.Stop();
                         }
-                        else if(!anyMonsterSee && (MonsterSeeMusic || HeartBreakTime))
+                        else if (!anyMonsterSee && (MonsterSeeMusic || HeartBreakTime))
                         {
-                            MonsterSeeMusic = false;
-                            if (!HeartBreak && Bit == 0)
+                            if (!HeartBreakTime && Bit == 0)
                             {
                                 UpdateSound("heartBreak");
                                 HeartBreakTime = true;
-                            };
+                            }
 
                             if (HeartBreakTime)
                                 Bit++;
@@ -147,8 +147,8 @@ namespace ulearngame1
                             {
                                 Bit = 0;
                                 HeartSound.Stop();
-                                HeartBreak = true;
                                 HeartBreakTime = false;
+                                MonsterSeeMusic = false;
                             }
                         }
                     }
