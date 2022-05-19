@@ -9,12 +9,14 @@ namespace ulearngame1
 {
     static class Program
     {
+        public static Form1 form = null;
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1() { WindowState = FormWindowState.Maximized, BackColor = Color.Black, FormBorderStyle = FormBorderStyle.None});
+            form = new Form1() { WindowState = FormWindowState.Maximized, BackColor = Color.Black, FormBorderStyle = FormBorderStyle.None };
+            Application.Run(form);
         }
     }
 }

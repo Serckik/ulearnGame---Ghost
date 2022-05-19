@@ -27,8 +27,8 @@ namespace ulearngame1
         public int widht;
         public bool left, right, top, bottom, atack;
         public Directions direction = Directions.right;
-        public int Power = 2;
-        public int MonstersAreVisible = 2;
+        public int Power = 100;
+        public int MonstersAreVisible = 100;
         public int VisionTime;
         public bool IsKeyCollect;
         public bool DoorOpen = true;

@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace ulearngame1
 {
-    class Controller
+    class Controller : Form1
     {
         public static void PlayerKey(Keys pressed, bool IsActive)
         {
@@ -17,7 +17,8 @@ namespace ulearngame1
             if (pressed == Keys.W || pressed == Keys.Up) { GameModel.player.top = IsActive; };
             if (pressed == Keys.S || pressed == Keys.Down) { GameModel.player.bottom = IsActive; };
             if (pressed == Keys.Q) { GameModel.player.CanStanMonster(); };
-            if(pressed == Keys.E) { GameModel.player.VisionActivate = true;};
+            if (pressed == Keys.E) { GameModel.player.VisionActivate = true;};
+            if (pressed == Keys.Escape) { ulearngame1.Menu.StopGame(); };
         }
     }
 }

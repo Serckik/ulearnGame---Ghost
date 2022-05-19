@@ -88,7 +88,7 @@ namespace ulearngame1
                     VisionObjects = VisionObjects.Concat(animations).ToList();
                     player.VisionTime++;
                 }
-                else if (player.VisionTime == 100)
+                if (player.VisionTime == 100)
                 {
                     player.MonstersAreVisible--;
                     player.VisionTime = 0;

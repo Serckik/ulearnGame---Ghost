@@ -14,34 +14,49 @@ namespace ulearngame1
 
     public partial class Form1 : Form
     {
-        Timer timer;
+        public static Timer timer;
+        public static Timer secondTimer;
+        public static bool isPused;
+        public static Control.ControlCollection control;
         public Form1()
         {
             timer = new Timer();
+            secondTimer = new Timer();
+            secondTimer.Interval = 50;
+            secondTimer.Tick += SecondUpdate;
+            secondTimer.Start();
+            control = Controls;
+            KeyDown += Form1_KeyDown;
+            KeyUp += Form1_KeyUp;
             timer.Interval = 50;
             timer.Tick += Update;
             timer.Start();
-            KeyDown += Form1_KeyDown;
-            KeyUp += Form1_KeyUp;
-            //GameModel.DevVision();
             DoubleBuffered = true;
             InitializeComponent();
         }
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
-            Controller.PlayerKey(e.KeyCode, false);
+            if(!isPused)
+                Controller.PlayerKey(e.KeyCode, false);
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            GameModel.keyPressed = true;
-            Controller.PlayerKey(e.KeyCode, true);
+            if (!isPused)
+            {
+                GameModel.keyPressed = true;
+                Controller.PlayerKey(e.KeyCode, true);
+            }
         }
 
         public void Update(object sender, EventArgs e)
         {
             GameModel.GetVision();
+        }
+
+        public void SecondUpdate(object sender, EventArgs e)
+        {
             Invalidate();
         }
 
