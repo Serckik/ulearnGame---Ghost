@@ -13,19 +13,19 @@ namespace ulearngame1
     {
         private const string WithoutDanger = @"
 WWWWWWWW
-WEEE.KKW
-OPEEEEEW
-WEEE.KKW
+/EEE.KK/
+OPEEEEE/
+/EEE.KK/
 WWWWWWWW";
 
         private const string Run = @"
 WWWWWWWWWWWWWW
-WMEEPEEEEEEEOW
+/MEEPEEEEEEEO/
 WWWWWWWWWWWWWW";
 
         private const string Defence = @"
 WWWWWWWWWWWWWW
-WPEEEEEEEEEMOW
+/PEEEEEEEEEMO/
 WWWWWWWWWWWWWW";
 
         private const string level01 = @"
@@ -109,7 +109,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE/
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE/
 /EEEEEEEEEEEEEPEEEEEEEEEEEEEEEE/
-/EEEEEEEEEEEEEEEEEEEEEEEEEEWEEE/
+/EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE/
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE/
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE/
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE/
@@ -200,13 +200,13 @@ WWWWWWWWWWWW";
             new Level(level03, false, 2)
         };
 
-        public static string[] StringNameLevels = new string[] { "Просто уровень", "Беги", "Защищайся", "Уровень 1", "Уровень 2" };
+        public static string[] StringNameLevels = new string[] { "Просто уровень", "Беги", "Защищайся", "Уровень 1", "Уровень 2", "Уровень 3" };
 
         public static IPlaceable[,] CreateMap(int level)
         {
             keysCount = 0;
             PlayMusic();
-            return CreateMap(listMap[4]);
+            return CreateMap(listMap[level]);
         }
 
         public static void PlayMusic()
@@ -224,9 +224,14 @@ WWWWWWWWWWWW";
             else
             {
                 waveOut.Play();
-                View.runMusic.Stop();
+                if(View.runMusic != null)
+                    View.runMusic.Stop();
+
                 View.RunMusicActivate = false;
-                View.HeartSound.Stop();
+
+                if (View.HeartSound != null)
+                    View.HeartSound.Stop();
+
                 View.HeartBreak = false;
                 View.HeartBreakTime = false;
                 View.Bit = 0;

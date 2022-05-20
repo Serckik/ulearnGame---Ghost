@@ -20,6 +20,7 @@ namespace ulearngame1
         public List<IPlaceable> VisionObjects { get; set; }
         public bool IsVisible { get; set; }
         public Point LastSeePlayer = new Point(-1, -1);
+        public Point PreviousPosition;
         public bool SeePlayer;
         public Directions direction = Directions.None;
         public bool IsStanned;
@@ -158,6 +159,8 @@ namespace ulearngame1
             freeSpace = !bottom ? freeSpace : freeSpace + 1;
             freeSpace = !top ? freeSpace : freeSpace + 1;
 
+            PreviousPosition = new Point(X, Y);
+
             if (VisionObjects.Where(x => x.X / 60 == GameModel.player.Position.X && x.Y / 60 == GameModel.player.Position.Y).Count() != 0)
             {
                 LastSeePlayer = new Point(GameModel.player.Position.X, GameModel.player.Position.Y);
@@ -186,7 +189,10 @@ namespace ulearngame1
                     Move.MoveY(this, 60, 0, 1);
                 }
                 if (LastSeePlayer == new Point(Position.X, Position.Y))
+                {
+                    direction = (Directions)random.Next(1, 5);
                     SeePlayer = false;
+                }
             }
             else
             {
@@ -227,7 +233,12 @@ namespace ulearngame1
                     Move.MoveY(this, 60, 0, 1);
                     direction = (Directions)3;
                 }
+
             }
+
+
+            if (PreviousPosition == new Point(X, Y))
+                direction = (Directions)random.Next(1, 5);
 
             if (Position.X == GameModel.player.Position.X && Position.Y == GameModel.player.Position.Y)
                 GameModel.GameIsOver();
