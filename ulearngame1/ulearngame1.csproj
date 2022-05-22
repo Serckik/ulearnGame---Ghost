@@ -141,8 +141,6 @@
     <None Include="Resources\player.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Shaltai W10.ttf" />
-    <None Include="Resources\Shaltai.ttf" />
     <None Include="Resources\Walk.png" />
   </ItemGroup>
   <ItemGroup>
@@ -252,9 +250,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\2-43 We Did It!.mp3" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\AtackMusic.mp3" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Floor.jpg" />
