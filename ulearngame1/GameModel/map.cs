@@ -13,19 +13,19 @@ namespace ulearngame1
     {
         private const string WithoutDanger = @"
 WWWWWWWW
-WEEE.KKW
-OPEEEEEW
-WEEE.KKW
+/EEE.KK/
+OPEEEEE/
+/EEE.KK/
 WWWWWWWW";
 
         private const string Run = @"
 WWWWWWWWWWWWWW
-WMEEPEEEEEEEOW
+/MEEPEEEEEEEO/
 WWWWWWWWWWWWWW";
 
         private const string Defence = @"
 WWWWWWWWWWWWWW
-WPEEEEEEEEEMOW
+/PEEEEEEEEEMO/
 WWWWWWWWWWWWWW";
 
         private const string level01 = @"
@@ -109,7 +109,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE/
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE/
 /EEEEEEEEEEEEEPEEEEEEEEEEEEEEEE/
-/EEEEEEEEEEEEEEEEEEEEEEEEEEWEEE/
+/EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE/
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE/
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE/
 /EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE/
@@ -188,7 +188,6 @@ WKEEEEEKEWWW
 WWWWWWWWWWWW";
 
         public static int keysCount = 0;
-        public static WaveOutEvent waveOut;
 
         private static List<Level> listMap = new List<Level>
         {
@@ -200,42 +199,16 @@ WWWWWWWWWWWW";
             new Level(level03, false, 2)
         };
 
-        public static string[] StringNameLevels = new string[] { "Просто уровень", "Беги", "Защищайся", "Уровень 1", "Уровень 2" };
+        public static string[] StringNameLevels = new string[] { "Просто уровень", "Беги", "Защищайся", "Уровень 1", "Уровень 2", "Уровень 3" };
 
         public static IPlaceable[,] CreateMap(int level)
         {
             keysCount = 0;
-            PlayMusic();
-            return CreateMap(listMap[4]);
+            GameModel.LevelIsStarted = true;
+            return CreateMap(listMap[level]);
         }
 
-        public static void PlayMusic()
-        {
-            if(waveOut == null)
-            {
-                var dir = Directory.GetParent(Directory.GetCurrentDirectory());
-                var path = Directory.GetParent(dir.ToString()).ToString();
-                WaveFileReader reader = new WaveFileReader(path + "/Resources/mainMusic.wav");
-                LoopStream loop = new LoopStream(reader);
-                waveOut = new WaveOutEvent();
-                waveOut.Init(loop);
-                waveOut.Play();
-            }
-            else
-            {
-                waveOut.Play();
-                View.runMusic.Stop();
-                View.RunMusicActivate = false;
-                View.HeartSound.Stop();
-                View.HeartBreak = false;
-                View.HeartBreakTime = false;
-                View.Bit = 0;
-                GameModel.IsUpdated = true;
-                View.MonsterSeeMusic = false;
-            }
-        }
-
-        private static IPlaceable[,] CreateMap(Level levelInfo)
+        public static IPlaceable[,] CreateMap(Level levelInfo)
         {
             var map = levelInfo.Map;
             string separator = map[0] == '\r' ? "\r\n" : "\n";
@@ -289,49 +262,6 @@ WWWWWWWWWWWW";
                     return new ClosedDoor(Resource1.ClosedDoor, x, y);
                 default:
                     throw new Exception($"wrong character for ICreature {c}");
-            }
-        }
-
-        public class LoopStream : WaveStream
-        {
-            WaveStream sourceStream;
-            public LoopStream(WaveStream sourceStream)
-            {
-                this.sourceStream = sourceStream;
-                this.EnableLooping = true;
-            }
-            public bool EnableLooping { get; set; }
-            public override WaveFormat WaveFormat
-            {
-                get { return sourceStream.WaveFormat; }
-            }
-            public override long Length
-            {
-                get { return sourceStream.Length; }
-            }
-            public override long Position
-            {
-                get { return sourceStream.Position; }
-                set { sourceStream.Position = value; }
-            }
-            public override int Read(byte[] buffer, int offset, int count)
-            {
-                int totalBytesRead = 0;
-
-                while (totalBytesRead < count)
-                {
-                    int bytesRead = sourceStream.Read(buffer, offset + totalBytesRead, count - totalBytesRead);
-                    if (bytesRead == 0)
-                    {
-                        if (sourceStream.Position == 0 || !EnableLooping)
-                        {
-                            break;
-                        }
-                        sourceStream.Position = 0;
-                    }
-                    totalBytesRead += bytesRead;
-                }
-                return totalBytesRead;
             }
         }
     }

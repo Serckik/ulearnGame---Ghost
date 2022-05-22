@@ -17,3 +17,5 @@ C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearng
 C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\bin\Debug\NAudio.WinMM.dll
 C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\bin\Debug\NAudio.xml
 C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\obj\Debug\ulearngame1.csproj.CopyComplete
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\bin\Debug\nunit.framework.dll
+C:\Users\ЯкунинАртемИгоревич\source\repos\ulearngame1\ulearngame1\bin\Debug\nunit.framework.xml

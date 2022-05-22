@@ -20,6 +20,7 @@ namespace ulearngame1
         public List<IPlaceable> VisionObjects { get; set; }
         public bool IsVisible { get; set; }
         public Point LastSeePlayer = new Point(-1, -1);
+        public Point PreviousPosition;
         public bool SeePlayer;
         public Directions direction = Directions.None;
         public bool IsStanned;
@@ -34,7 +35,7 @@ namespace ulearngame1
             name = "Monster";
             X = (x * GameModel.ElementSize) - 30;
             Y = (y * GameModel.ElementSize) - 30;
-            
+
             Position = new Point(x, y);
             Vision = 6;
             MoveSpeed = 5;
@@ -133,7 +134,7 @@ namespace ulearngame1
         private int StayTime;
         public void MonsterMove()
         {
-            if (IsStanned && StayTime != 100) 
+            if (IsStanned && StayTime != 100)
             {
                 SeePlayer = false;
                 direction = Directions.None;
@@ -157,6 +158,8 @@ namespace ulearngame1
             freeSpace = !left ? freeSpace : freeSpace + 1;
             freeSpace = !bottom ? freeSpace : freeSpace + 1;
             freeSpace = !top ? freeSpace : freeSpace + 1;
+
+            PreviousPosition = new Point(X, Y);
 
             if (VisionObjects.Where(x => x.X / 60 == GameModel.player.Position.X && x.Y / 60 == GameModel.player.Position.Y).Count() != 0)
             {
@@ -186,7 +189,10 @@ namespace ulearngame1
                     Move.MoveY(this, 60, 0, 1);
                 }
                 if (LastSeePlayer == new Point(Position.X, Position.Y))
+                {
+                    direction = (Directions)random.Next(1, 5);
                     SeePlayer = false;
+                }
             }
             else
             {
@@ -227,7 +233,12 @@ namespace ulearngame1
                     Move.MoveY(this, 60, 0, 1);
                     direction = (Directions)3;
                 }
+
             }
+
+
+            if (PreviousPosition == new Point(X, Y))
+                direction = (Directions)random.Next(1, 5);
 
             if (Position.X == GameModel.player.Position.X && Position.Y == GameModel.player.Position.Y)
                 GameModel.GameIsOver();

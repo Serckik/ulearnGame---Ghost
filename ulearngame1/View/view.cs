@@ -24,9 +24,10 @@ namespace ulearngame1
         public static bool HeartBreakTime;
         public static bool RunMusicActivate;
         public static int Bit;
-        public static WaveOutEvent outputSound;
-        public static WaveOutEvent HeartSound;
-        public static WaveOutEvent runMusic;
+        public static WaveOutEvent outputSound = new WaveOutEvent();
+        public static WaveOutEvent HeartSound = new WaveOutEvent();
+        public static WaveOutEvent runMusic = new WaveOutEvent();
+        public static WaveOutEvent waveOut;
         public static void UpdateSound(string sound)
         {
             outputSound = new WaveOutEvent();
@@ -78,10 +79,85 @@ namespace ulearngame1
                 outputSound.Play();
         }
 
+        public static void PlayMusic()
+        {
+            if (waveOut == null)
+            {
+                var dir = Directory.GetParent(Directory.GetCurrentDirectory());
+                var path = Directory.GetParent(dir.ToString()).ToString();
+                WaveFileReader reader = new WaveFileReader(path + "/Resources/mainMusic.wav");
+                LoopStream loop = new LoopStream(reader);
+                waveOut = new WaveOutEvent();
+                waveOut.Init(loop);
+                waveOut.Play();
+            }
+            else
+            {
+                waveOut.Play();
+                runMusic.Stop();
+                RunMusicActivate = false;
+                HeartSound.Stop();
+                HeartBreak = false;
+                HeartBreakTime = false;
+                Bit = 0;
+                GameModel.IsUpdated = true;
+                MonsterSeeMusic = false;
+            }
+        }
+
+        public class LoopStream : WaveStream
+        {
+            WaveStream sourceStream;
+            public LoopStream(WaveStream sourceStream)
+            {
+                this.sourceStream = sourceStream;
+                this.EnableLooping = true;
+            }
+            public bool EnableLooping { get; set; }
+            public override WaveFormat WaveFormat
+            {
+                get { return sourceStream.WaveFormat; }
+            }
+            public override long Length
+            {
+                get { return sourceStream.Length; }
+            }
+            public override long Position
+            {
+                get { return sourceStream.Position; }
+                set { sourceStream.Position = value; }
+            }
+            public override int Read(byte[] buffer, int offset, int count)
+            {
+                int totalBytesRead = 0;
+
+                while (totalBytesRead < count)
+                {
+                    int bytesRead = sourceStream.Read(buffer, offset + totalBytesRead, count - totalBytesRead);
+                    if (bytesRead == 0)
+                    {
+                        if (sourceStream.Position == 0 || !EnableLooping)
+                        {
+                            break;
+                        }
+                        sourceStream.Position = 0;
+                    }
+                    totalBytesRead += bytesRead;
+                }
+                return totalBytesRead;
+            }
+        }
+
         public static void UpdateTextures(Graphics g, bool keyPressed)
         {
             if (!Form1.isPused)
             {
+                if (GameModel.LevelIsStarted) 
+                { 
+                    PlayMusic();
+                    GameModel.LevelIsStarted = false;
+                }
+
                 var anyMonsterSee = GameModel.VisionObjects.Where(x => x is Monster).Where(x => ((Monster)x).IsVisible).ToList().Count != 0;
                 foreach (var item in GameModel.VisionObjects)
                     if (!(item is IMoveble))
@@ -177,12 +253,12 @@ namespace ulearngame1
                             if (anyMonsterSee && !RunMusicActivate && !VisionMusicActive)
                             {
                                 RunMusicActivate = true;
-                                Map.waveOut.Pause();
+                                waveOut.Pause();
                                 UpdateSound("run");
                             }
                             else if (!anyMonsterSee && !HeartBreakTime && RunMusicActivate)
                             {
-                                Map.waveOut.Play();
+                                waveOut.Play();
                                 runMusic.Stop();
                                 RunMusicActivate = false;
                             }

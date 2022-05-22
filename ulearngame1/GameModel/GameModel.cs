@@ -22,6 +22,7 @@ namespace ulearngame1
         public static int vision;
         public static int level = 0;
         public static bool IsUpdated;
+        public static bool LevelIsStarted;
 
         public static void GameIsOver()
         {
@@ -37,7 +38,7 @@ namespace ulearngame1
             KeysFound = 0;
         }
 
-        private static List<IPlaceable> FindImoveble()
+        public static List<IPlaceable> FindImoveble()
         {
             var animations = new LinkedList<IPlaceable>();
             foreach (var item in map)
