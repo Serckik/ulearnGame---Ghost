@@ -85,7 +85,7 @@ WWWWWWW";
             while (!GameModel.LevelIsStarted)
             {
                 ((Monster)monsters[0]).MonsterMove();
-                if(GameModel.player.Position == ((Monster)monsters[0]).Position && !GameModel.LevelIsStarted)
+                if (GameModel.player.Position == ((Monster)monsters[0]).Position && !GameModel.LevelIsStarted)
                     throw new AssertionException("Монстр не убил игрока");
             }
         }
