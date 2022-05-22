@@ -74,7 +74,7 @@ namespace ulearngame1
                 HeartSound.Init(loop);
                 HeartSound.Play();
             }
-            outputSound.Volume = 0.1f;
+            outputSound.Volume = 0.5f;
             if(sound != "heartBreak" && sound != "run")
                 outputSound.Play();
         }
