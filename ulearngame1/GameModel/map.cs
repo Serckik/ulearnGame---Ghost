@@ -204,37 +204,11 @@ WWWWWWWWWWWW";
         public static IPlaceable[,] CreateMap(int level)
         {
             keysCount = 0;
-            PlayMusic();
-            return CreateMap(listMap[4]);
+            GameModel.LevelIsStarted = true;
+            return CreateMap(listMap[level]);
         }
 
-        public static void PlayMusic()
-        {
-            if(waveOut == null)
-            {
-                var dir = Directory.GetParent(Directory.GetCurrentDirectory());
-                var path = Directory.GetParent(dir.ToString()).ToString();
-                WaveFileReader reader = new WaveFileReader(path + "/Resources/mainMusic.wav");
-                LoopStream loop = new LoopStream(reader);
-                waveOut = new WaveOutEvent();
-                waveOut.Init(loop);
-                waveOut.Play();
-            }
-            else
-            {
-                waveOut.Play();
-                View.runMusic.Stop();
-                View.RunMusicActivate = false;
-                View.HeartSound.Stop();
-                View.HeartBreak = false;
-                View.HeartBreakTime = false;
-                View.Bit = 0;
-                GameModel.IsUpdated = true;
-                View.MonsterSeeMusic = false;
-            }
-        }
-
-        private static IPlaceable[,] CreateMap(Level levelInfo)
+        public static IPlaceable[,] CreateMap(Level levelInfo)
         {
             var map = levelInfo.Map;
             string separator = map[0] == '\r' ? "\r\n" : "\n";
