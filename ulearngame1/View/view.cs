@@ -152,8 +152,8 @@ namespace ulearngame1
         {
             if (!Form1.isPused)
             {
-                if (GameModel.LevelIsStarted) 
-                { 
+                if (GameModel.LevelIsStarted)
+                {
                     PlayMusic();
                     GameModel.LevelIsStarted = false;
                 }
@@ -216,7 +216,7 @@ namespace ulearngame1
                             {
                                 MonsterSeeMusic = true;
                                 Bit = 0;
-                                if(HeartSound != null)
+                                if (HeartSound != null)
                                     HeartSound.Stop();
                             }
                             else if (!anyMonsterSee && (MonsterSeeMusic || HeartBreakTime))
@@ -268,6 +268,17 @@ namespace ulearngame1
                 g.DrawString("Оглушение: " + (GameModel.player.Power).ToString(), new Font("Impact", 16), new SolidBrush(Color.Gold), 300, 0);
                 g.DrawString("Сканирование: " + (GameModel.player.MonstersAreVisible).ToString(), new Font("Impact", 16), new SolidBrush(Color.Gold), 600, 0);
                 g.DrawString("| " + Map.StringNameLevels[GameModel.level] + " |", new Font("Impact", 16), new SolidBrush(Color.Gold), 900, 0);
+                if (GameModel.level == 0)
+                {
+                    g.DrawString("Движение W A S D или стрелочки", new Font("Impact", 16), new SolidBrush(Color.Gold), 500, 500);
+                    g.DrawString("Чтобы пройти уровень, нужно собрать все ключи", new Font("Impact", 16), new SolidBrush(Color.Gold), 450, 600);
+                }
+                if(GameModel.level == 1)
+                    g.DrawString("На каждом уровне вас будет ждать голодный монстр, не дайте ему вас поймать", new Font("Impact", 16), new SolidBrush(Color.Gold), 500, 500);
+                if (GameModel.level == 2)
+                    g.DrawString("Если от монстра не убежать, то используйте оглушение на Q", new Font("Impact", 16), new SolidBrush(Color.Gold), 500, 500);
+                if (GameModel.level == 3)
+                    g.DrawString("Если хотите узнать где монстр, то используйте просветку на E", new Font("Impact", 16), new SolidBrush(Color.Gold), 500, 800);
             }
             else
             {
