@@ -279,6 +279,11 @@ namespace ulearngame1
                     g.DrawString("Если от монстра не убежать, то используйте оглушение на Q", new Font("Impact", 16), new SolidBrush(Color.Gold), 500, 500);
                 if (GameModel.level == 3)
                     g.DrawString("Если хотите узнать где монстр, то используйте просветку на E", new Font("Impact", 16), new SolidBrush(Color.Gold), 500, 800);
+                if (GameModel.level == listMap.Count - 1)
+                {
+                    g.DrawString("Поздравляю, ты сбежал из этого пугающего места, теперь ты можешь отдохнуть. Спасибо за то, что поиграли!!!", new Font("Impact", 16), new SolidBrush(Color.Gold), 400, 500);
+                    g.DrawString("И отсюда нет выхода... Вы уверены, что сбежали?", new Font("Impact", 16), new SolidBrush(Color.Gold), 700, 600);
+                }
             }
             else
             {

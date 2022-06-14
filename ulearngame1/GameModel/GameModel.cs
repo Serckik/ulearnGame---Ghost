@@ -20,7 +20,7 @@ namespace ulearngame1
         public static bool keyPressed = false;
         public static Player player;
         public static int vision;
-        public static int level = 0;
+        public static int level = 6;
         public static bool IsUpdated;
         public static bool LevelIsStarted;
 

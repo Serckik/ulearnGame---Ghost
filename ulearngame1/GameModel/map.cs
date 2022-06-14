@@ -82,6 +82,11 @@ WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 /K/EE/EEEEEEEEEEPOWWWWWWWW/EEEK/
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
 
+        private const string endLevel = @"
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
+/EEEEEEEEEEEEEEPEEEEEEEEEEEEEEE/
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW";
+
         private const string TestLevel = @"
 WWWWWWWWWWWWWWWDWWWWWWWWWWWWWWWW
 /EEEEEEEEEEEEEEPEEEEEEEEEEEEEEE|
@@ -189,23 +194,24 @@ WWWWWWWWWWWW";
 
         public static int keysCount = 0;
 
-        private static List<Level> listMap = new List<Level>
+        public static List<Level> listMap = new List<Level>
         {
             new Level(WithoutDanger, true, 0),
             new Level(Run, true, 1),
             new Level(Defence, true, 1),
             new Level(level01, false, 1),
             new Level(level02, false, 2),
-            new Level(level03, false, 2)
+            new Level(level03, false, 2),
+            new Level(endLevel, true, 0)
         };
 
-        public static string[] StringNameLevels = new string[] { "Просто уровень", "Беги", "Защищайся", "Уровень 1", "Уровень 2", "Уровень 3" };
+        public static string[] StringNameLevels = new string[] { "Просто уровень", "Беги", "Защищайся", "Уровень 1", "Уровень 2", "Уровень 3", "Победа?" };
 
         public static IPlaceable[,] CreateMap(int level)
         {
             keysCount = 0;
             GameModel.LevelIsStarted = true;
-            return CreateMap(listMap[level]);
+            return CreateMap(listMap[6]);
         }
 
         public static IPlaceable[,] CreateMap(Level levelInfo)
