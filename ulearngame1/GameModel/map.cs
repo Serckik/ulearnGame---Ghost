@@ -211,7 +211,7 @@ WWWWWWWWWWWW";
         {
             keysCount = 0;
             GameModel.LevelIsStarted = true;
-            return CreateMap(listMap[6]);
+            return CreateMap(listMap[level]);
         }
 
         public static IPlaceable[,] CreateMap(Level levelInfo)
